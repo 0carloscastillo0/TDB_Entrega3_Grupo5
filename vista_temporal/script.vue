@@ -2,12 +2,12 @@
 <template>
   <div id="app">
     <h1>{{mensaje}}</h1>
-    <button @click="doSomething">Crear Emergencia</button>
-    <button>Crear Tarea</button>
-    <button>Ver Emergencias</button>
-    <button>Ver Tareas</button>
-    <button>Estados Emergencias</button>
-    <button>Historial</button>
+    <button @click="emergencia">Crear Emergencia</button>
+    <button @click="crearTarea">Crear Tarea</button>
+    <button @click="verEmergencia">Ver Emergencias</button>
+    <button @click="verTarea">Ver Tareas</button>
+    <button @click="status">Estados Emergencias</button>
+    <button@click="log">Historial</button>
 <!--------------------------------------------------->  
     
     <div class="box" v-if="vistaEmergencia">
@@ -33,7 +33,7 @@
         </div>
       </form>
       <button> Crear </button>
-      <button> Volver </button>
+
     </div> 
     
 <!--------------------------------------------------->    
@@ -51,7 +51,7 @@
           </textarea>
         </div>
         <div class="volRequerido">
-          <label for="miInput">Voluntarios Reqeridos</label><br>
+          <label for="miInput">Voluntarios Requeridos</label><br>
           <input id="nombreE" size="10" v-model="numero" type="number">
         </div>
         <div class="fechaIni">
@@ -65,7 +65,7 @@
         
       </form>
       <button> Crear </button>
-      <button> Volver </button>
+     
     </div>
     
 <!--------------------------------------------------->    
@@ -181,21 +181,60 @@
     }
   },
   methods: {
-        doSomething() {
-          alert("SDSDS");
+    crearTarea(){
+    this.vistaTarea=true;
+    this.vistaEmergencia=false;
+    this.vistaActEmer=false;
+    this.vistaActTarea=false;
+    this.vistaLog=false;
+    this.vistaStatus=false;
+    } ,
+    emergencia(){
+    this.vistaTarea=false;
+    this.vistaEmergencia=true;
+    this.vistaActEmer=false;
+    this.vistaActTarea=false;
+    this.vistaLog=false;
+    this.vistaStatus=false;
+    },
+    log(){
+        this.vistaTarea=false;
+        this.vistaEmergencia=false;
+        this.vistaActEmer=false;
+        this.vistaActTarea=false;
+        this.vistaLog=true;
+        this.vistaStatus=false;
+    },
+    status(){
+        this.vistaTarea=false;
+        this.vistaEmergencia=false;
+        this.vistaActEmer=false;
+        this.vistaActTarea=false;
+        this.vistaLog=false;
+        this.vistaStatus=true;
+    },
+    verTarea(){
+    this.vistaTarea=false;
+    this.vistaEmergencia=false;
+    this.vistaActEmer=false;
+    this.vistaActTarea=true;
+    this.vistaLog=false;
+    this.vistaStatus=false;
+    },
+    verEmergencia(){
+        this.vistaTarea=false;
+        this.vistaEmergencia=false;
+        this.vistaActEmer=true;
+        this.vistaActTarea=false;
+        this.vistaLog=false;
+        this.vistaStatus=false;
     }
+
   }
+
 };
- var vista = new Vue({
-  el: '#app',
-  data: {
 
-  },
-  // define methods under the `methods` object
-  methods: {
 
-  }
-})
 
 </script>
 
