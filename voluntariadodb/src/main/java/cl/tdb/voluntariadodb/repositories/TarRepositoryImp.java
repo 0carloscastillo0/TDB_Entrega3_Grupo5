@@ -39,4 +39,19 @@ public class TarRepositoryImp implements TareaRepository{
         }
 
     }
+
+
+    @Override
+    public String updateTarea(int nuevoNumeroTarea, Tarea tarea){
+        try(Connection conn = sql20.open()){
+            String updateSql = "update tarea set id_estado = :idEstado where id = :id_tarea";
+            con.createQuery(updateSql)
+                .addParameter("idEstado", nuevoNumeroTarea)
+                .addParameter("id_tarea", tarea.getId_tarea())
+                .executeUpdate();
+            return "Se actualizo la tarea";
+        }
+    }
+
+
 }

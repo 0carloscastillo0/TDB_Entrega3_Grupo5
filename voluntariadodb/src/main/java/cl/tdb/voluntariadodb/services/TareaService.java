@@ -33,4 +33,12 @@ public class TareaService{
         return resultado;
     }
     
+    @PutMapping("/tarea")
+    @ResponseBody
+    public String updateTarea(@RequestBody int nuevoNumeroTarea, @RequestBody Tarea tarea){
+        String retorno = tareaRepository.updateTarea(nuevoNumeroTarea, tarea);
+        return retorno;
+    }
+    
+    
 }
