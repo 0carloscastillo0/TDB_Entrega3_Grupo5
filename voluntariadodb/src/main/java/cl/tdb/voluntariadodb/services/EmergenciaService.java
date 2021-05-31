@@ -31,5 +31,21 @@ public class EmergenciaService {
         Emergencia resultado = emergenciaRepository.crearEmergencia(emergencia);
         return resultado;
     }
+    @GetMapping("/emergencia1")
+    public List<Emergencia> obtenerEmergencias1(){
+        return emergenciaRepository.obtenerEmergencias1();
+    }
+    @GetMapping("/emergencia2")
+    public List<Emergencia> obtenerEmergencias2(){
+        return emergenciaRepository.obtenerEmergencias2();
+    }
+    @GetMapping("/emergencia3")
+    public List<Emergencia> obtenerEmergencias3(){
+        return emergenciaRepository.obtenerEmergencias3();
+    }
+    @GetMapping("/emergencia4")
+    public List<Emergencia> obtenerEmergencias4(){
+        return emergenciaRepository.obtenerEmergencias4();
+    }
 
 }
