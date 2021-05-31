@@ -1,15 +1,15 @@
 package cl.tdb.voluntariadodb.models;
 
 public class Institucion {
-    private Interger id;
+    private int id;
     private String nombre;
     private String descripcion;
 
-    public Interger getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Interger id) {
+    public void setId(int id) {
         this.id = id;
     }
 
