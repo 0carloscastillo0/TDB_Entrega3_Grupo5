@@ -4,8 +4,11 @@
     <h1>{{mensaje}}</h1>
     <button @click="doSomething">Crear Emergencia</button>
     <button>Crear Tarea</button>
-    <button>Acciones De Emergencia</button>
-    <button>Acciones En Tareas</button>
+    <button>Ver Emergencias</button>
+    <button>Ver Tareas</button>
+    <button>Estados Emergencias</button>
+    <button>Historial</button>
+<!--------------------------------------------------->  
     
     <div class="box" v-if="vistaEmergencia">
       <p>Vista Emergencia</p>
@@ -31,7 +34,9 @@
       </form>
       <button> Crear </button>
       <button> Volver </button>
-    </div>  
+    </div> 
+    
+<!--------------------------------------------------->    
     
     <div class="box" v-if="vistaTarea">
       Vista Tarea
@@ -63,6 +68,8 @@
       <button> Volver </button>
     </div>
     
+<!--------------------------------------------------->    
+
     <div class="boxRightE" v-if="vistaActEmer">
       <label> Emergencia a Finalizar </label><br>
       <div class="grayBoxLE">
@@ -87,10 +94,32 @@
       <button> Iniciar </button>
     </div>    
     
+<!--------------------------------------------------->    
     
+    <div class="boxRightE" v-if="vistaLog">
+      <label> Tareas Creadas </label><br>
+      <div class="grayBoxLE">
+        Log
+      </div>
+    </div>
     
+    <div class="boxCenterE" v-if="vistaLog">
+      <label> Tareas Iniciadas </label><br>
+      <div class="grayBoxLE">
+        Log
+      </div>
+    </div>    
     
+    <div class="boxLeftE" v-if="vistaLog">
+      <label> Tareas Finalizadas </label><br>
+      <div class="grayBoxLE">
+        Log
+      </div>
+    </div>    
     
+  <!--------------------------------------------------->    
+
+      
     <div class="boxLeft" v-if="vistaActTarea">
       <br>Tareas a Iniciar<br>
       <div class="grayBoxL">
@@ -107,8 +136,35 @@
       <button> Terminar </button>
     </div>
     
+ <!--------------------------------------------------->    
+     <div class="statusFL" v-if="vistaStatus">
+       <label> Status Emergencia </label>
+       <div class="statusBox">
+       </div>
+    </div>
+    
+     <div class="statusCL" v-if="vistaStatus">
+       <label> Status Emergencia </label>
+       <div class="statusBox">
+       </div>
+    </div> 
+    
+    <div class="statusFR" v-if="vistaStatus">
+       <label> Status Emergencia </label>
+       <div class="statusBox">
+       </div>
+    </div>
+    
+    <div class="statusCR" v-if="vistaStatus">
+       <label> Status Emergencia </label>
+       <div class="statusBox">
+       </div>
+    </div>
+    
+    
   </div>
 </template>
+<!--------------------------------------------------->    
 
 <script>
   export default {
@@ -118,7 +174,9 @@
       vistaEmergencia: false,
       vistaTarea: false,
       vistaActEmer: false,
-      vistaActTarea: true
+      vistaActTarea: false,
+      vistaLog: true,
+      vistaStatus: false
 
     }
   },
@@ -188,6 +246,7 @@ button {
   left: 156px;
   top: 153px;
   background: #ECEDC9;
+  border-radius: 33px;
 }
   .boxLeft {
   position: absolute;
@@ -216,6 +275,7 @@ button {
     top: 170px;
     color: black;
     background: #ECEDC9;
+   border-radius: 33px;
 }
   .boxCenterE{
     position: absolute;
@@ -225,6 +285,7 @@ button {
     top: 170px;
     color: black;
     background: #ECEDC9;
+    border-radius: 33px;
  }
     .boxLeftE{
     position: absolute;
@@ -234,6 +295,7 @@ button {
     top: 170px;
     color: black;
     background: #ECEDC9;
+    border-radius: 33px;
  }
  .cajaIzq{
    position: absolute;
@@ -243,6 +305,7 @@ button {
    top: 110px;
    background: #f0f2c5;
    color: black;
+   border-radius: 33px;
   }
  
   .cajaDer{
@@ -253,6 +316,7 @@ button {
     top: 110px;
     background: #f0f2c5;
     color: black;
+    border-radius: 33px;
   }
   
   .cajaAbaIzq{
@@ -315,6 +379,7 @@ button {
     top: 90px;
     background: #C4C4C4;
     color: black;
+    border-radius: 33px;
   }
   
   .grayBoxR{
@@ -325,6 +390,7 @@ button {
     top: 90px;
     background: #C4C4C4;
     color: black;
+    border-radius: 33px;
   }
   
     .grayBoxLE{
@@ -335,6 +401,63 @@ button {
     top: 90px;
     background: #C4C4C4;
     color: black;
+    border-radius: 33px;
+  }
+  
+  
+  .statusFL{
+    position: absolute;
+    width: 231px;
+    height: 414px;
+    left: 80px;
+    top: 160px;
+    color: black;
+    background: #ECEDC9;
+    border-radius: 33px;
+  }
+  
+  .statusCL{
+    position: absolute;
+    width: 231px;
+    height: 414px;
+    left: 346px;
+    top: 160px;
+    background: #ECEDC9;
+    color: black;
+    border-radius: 33px;
+  }
+  
+  .statusCR{
+    position: absolute;
+    width: 231px;
+    height: 420px;
+    left: 615px;
+    top: 160px;
+    color: black;
+    background: #ECEDC9;
+    border-radius: 33px;
+  }
+  
+  .statusFR{
+    position: absolute;
+    width: 231px;
+    height: 420px;
+    left: 884px;
+    top: 160px;
+    color: black;
+    background: #ECEDC9;
+    border-radius: 33px;
+  }
+  
+  .statusBox{
+    position: absolute;
+    width: 200px;
+    height: 360px;
+    left: 15px;
+    top: 39px;
+    color: black;
+    background: #C4C4C4;
+    border-radius: 33px;
   }
   
 </style>
