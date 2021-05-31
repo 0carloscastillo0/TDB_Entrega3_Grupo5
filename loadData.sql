@@ -10,13 +10,13 @@ INSERT INTO public.institucion(id_institucion, nombre_institucion, descripcion_i
 INSERT INTO public.institucion(id_institucion, nombre_institucion, descripcion_institucion) VALUES(7, 'Fundacion san vicente de paul', 'Servicio comunitario y mas');
 
 -- Tabla "emergencia".
-INSERT INTO public.emergencia(id_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(1, 'Incendio forestal', 'Necesitamos voluntarios para apagar las llamas del bosque de machuca', 2);
-INSERT INTO public.emergencia(id_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(2, 'Accidente temblor', 'Edificio derrumbado tras temblor', 3);
-INSERT INTO public.emergencia(id_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(3, 'Limpieza de calles', 'Las calles de la pintana se encuentras llenas de basura', 3);
-INSERT INTO public.emergencia(id_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(4, 'Trasladar personas', 'Ocurrio un desvorde de un rio, y se deben trasladar los habitantes cercanos a este', 6);
-INSERT INTO public.emergencia(id_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(5, 'Recolectar escombros', 'Limpieza de escombros en zonas rurales', 1);
-INSERT INTO public.emergencia(id_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(6, 'Alimentar a gente necesitada', 'Cocinar para las personas que se encuentren en situacion de calle', 6);
-INSERT INTO public.emergencia(id_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(7, 'Personas desaparecidas', 'Un grupo de personas ha desaparecido tras incendio en su campamento', 7);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(1, 1, 'Incendio forestal', 'Necesitamos voluntarios para apagar las llamas del bosque de machuca', 2);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(2, 1, 'Accidente temblor', 'Edificio derrumbado tras temblor', 3);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(3, 1, 'Limpieza de calles', 'Las calles de la pintana se encuentras llenas de basura', 3);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(4, 1, 'Trasladar personas', 'Ocurrio un desvorde de un rio, y se deben trasladar los habitantes cercanos a este', 6);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(5, 1, 'Recolectar escombros', 'Limpieza de escombros en zonas rurales', 1);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(6, 1, 'Alimentar a gente necesitada', 'Cocinar para las personas que se encuentren en situacion de calle', 6);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(7, 1, 'Personas desaparecidas', 'Un grupo de personas ha desaparecido tras incendio en su campamento', 7);
 
 
 

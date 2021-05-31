@@ -64,6 +64,7 @@ CREATE TABLE public.emergencia (
     id_emergencia integer NOT NULL,
     nombre_emergencia text,
     descripcion_emergencia text,
+    estado_emergencia int,
     "id_institucion" integer
 );
 
