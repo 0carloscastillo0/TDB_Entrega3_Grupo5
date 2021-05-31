@@ -37,28 +37,28 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public List<Emergencia> obtenerEmergencias1(){
         try(Connection conn = sql2o.open()){
-            String sql = "SELECT FROM emergencia WHERE estado_emergencia = 1";
+            String sql = "SELECT * FROM emergencia WHERE estado_emergencia = 1";
             return conn.createQuery(sql).executeAndFetch(Emergencia.class);
         }
     }
     @Override
     public List<Emergencia> obtenerEmergencias2(){
         try(Connection conn = sql2o.open()){
-            String sql = "SELECT FROM emergencia WHERE estado_emergencia = 2";
+            String sql = "SELECT * FROM emergencia WHERE estado_emergencia = 2";
             return conn.createQuery(sql).executeAndFetch(Emergencia.class);
         }
     }
     @Override
     public List<Emergencia> obtenerEmergencias3(){
         try(Connection conn = sql2o.open()){
-            String sql = "SELECT FROM emergencia WHERE estado_emergencia = 3";
+            String sql = "SELECT * FROM emergencia WHERE estado_emergencia = 3";
             return conn.createQuery(sql).executeAndFetch(Emergencia.class);
         }
     }
     @Override
     public List<Emergencia> obtenerEmergencias4(){
         try(Connection conn = sql2o.open()){
-            String sql = "SELECT FROM emergencia WHERE estado_emergencia = 4";
+            String sql = "SELECT * FROM emergencia WHERE estado_emergencia = 4";
             return conn.createQuery(sql).executeAndFetch(Emergencia.class);
         }
     }
