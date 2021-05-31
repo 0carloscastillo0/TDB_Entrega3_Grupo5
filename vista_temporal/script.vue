@@ -7,7 +7,7 @@
     <button @click="verEmergencia">Ver Emergencias</button>
     <button @click="verTarea">Ver Tareas</button>
     <button @click="status">Estados Emergencias</button>
-    <button@click="log">Historial</button>
+    <button @click="log">Historial</button>
 <!--------------------------------------------------->  
     
     -------------------------------------------------->  
@@ -20,8 +20,15 @@
           <input id="nombre" size="30" v-model="newEmergencia.nombre_emergencia" type="text">
         </div>
         <div class="cajaDer">
-          <label for="miInput">ID Institucion</label><br>
-          <input id="id_institucion" size="30" v-model="newEmergencia.id_institucion" type="int"> 
+          <select name="cars" id="cars" v-model="newEmergencia.id_institucion">
+            <option value="1">Bomberos</option>
+            <option value="2">Cruz Roja</option>
+            <option value="3">Voluntariado USACH</option>
+            <option value="4">Hermanas de Chicureo</option>
+            <option value="5">Santa Maria</option>
+            <option value="6">Manos Mormonas</option>
+            <option value="7">Fundacion San Vicente</option>
+          </select>
         </div>
         <div class="cajaAbaIzq">
           <label for="miInput">Descripcion Emergencia</label><br>
@@ -42,27 +49,28 @@
       <form>
         <div class="cajaIzq">
           <label for="miInput">Nombre Tarea</label><br>
-          <input id="nombreE" size="30" v-model="texto" type="text">
+          <input id="nombreT" size="30" v-model="newTarea.nombre_tarea" type="text">
         </div>
         <div class="cajaAbaIzq">
           <label for="miInput">Descripcion Tarea</label><br>
-          <textarea id="descripcionE" name="descripcionE" rows="7" cols="40">
+          <textarea id="descripcionE" name="descripcionE" v-model="newTarea.descripcion_tarea" rows="7" cols="40">
           </textarea>
         </div>
         <div class="volRequerido">
           <label for="miInput">Voluntarios Requeridos</label><br>
-          <input id="nombreE" size="10" v-model="numero" type="number">
+          <input id="nombreE" size="10" v-model="newTarea.cant_vol_requeridos" type="number">
         </div>
         <div class="fechaIni">
           <label for="miInput">Fecha Inicio</label><br>
-          <input id="fechaI" size="30" v-model="fecha" type="date">
+          <input id="fechaI" size="30" v-model="newTarea.inicio" type="date">
         </div>
         <div class="fechaFin">
           <label for="miInput">Fecha Termino</label><br>
-          <input id="fechaF" size="30" v-model="fecha" type="date">
+          <input id="fechaF" size="30" v-model="newTarea.fin" type="date">
         </div>
         
       </form>
+      <button @click="enviarT"> Crear </button> 
       <button> Crear </button>
      
     </div>
@@ -72,6 +80,7 @@
     <div class="boxRightE" v-if="vistaActEmer">
       <label> Emergencia a Finalizar </label><br>
       <div class="grayBoxLE">
+      <!--Mostrar Emergencias con estado "2"-->
         Emergencias a Finalizar
       </div>
       <button> Finalizar </button>
@@ -80,6 +89,7 @@
     <div class="boxCenterE" v-if="vistaActEmer">
       <label> Emergencia a Cancelar </label><br>
       <div class="grayBoxLE">
+      <!--Mostrar Emergencias con estado "2"-->
         Emergencias a Cancelar
       </div>
       <button> Cancelar </button>
@@ -88,6 +98,7 @@
     <div class="boxLeftE" v-if="vistaActEmer">
       <label> Emergencia a Iniciar </label><br>
       <div class="grayBoxLE">
+      <!--Mostrar Emergencias con estado "1"-->
         Emergencias a Iniciar
       </div>
       <button> Iniciar </button>
@@ -122,7 +133,8 @@
     <div class="boxLeft" v-if="vistaActTarea">
       <br>Tareas a Iniciar<br>
       <div class="grayBoxL">
-        <label> Tareas Activas </label>
+        <label> Tareas No Activas </label>
+        <!--Mostrar Tareas con estado "1"-->
       </div>
       <button> Iniciar </button>
     </div>
@@ -131,31 +143,36 @@
       <br>Tareas a Terminar<br>
       <div class="grayBoxL">
         <label> Tareas Activas </label>
+        <!--Mostrar Tareas con estado "2"-->
       </div>
       <button> Terminar </button>
     </div>
     
  <!--------------------------------------------------->    
      <div class="statusFL" v-if="vistaStatus">
-       <label> Status Emergencia </label>
+       <label> Emergencias Creadas </label>
        <div class="statusBox">
+       <!--Mostrar Emergencias con estado "1"-->
        </div>
     </div>
     
      <div class="statusCL" v-if="vistaStatus">
-       <label> Status Emergencia </label>
+       <label> Emergencias Iniciadas </label>
        <div class="statusBox">
+       <!--Mostrar Emergencias con estado "2"-->
        </div>
     </div> 
     
     <div class="statusFR" v-if="vistaStatus">
-       <label> Status Emergencia </label>
+       <label> Emergencias Finalizadas </label>
        <div class="statusBox">
+       <!--Mostrar Emergencias con estado "3"-->
        </div>
     </div>
     
     <div class="statusCR" v-if="vistaStatus">
-       <label> Status Emergencia </label>
+       <label> Emergencias Canceladas </label>
+       <!--Mostrar Emergencias con estado "4"-->
        <div class="statusBox">
        </div>
     </div>
@@ -176,62 +193,76 @@
       vistaActTarea: false,
       vistaLog: true,
       vistaStatus: false,
-      newEmergencia:{ }
+      newEmergencia:{ },
+      newTarea:{ }
     }
   },
   methods: {
     crearTarea(){
-    this.vistaTarea=true;
-    this.vistaEmergencia=false;
-    this.vistaActEmer=false;
-    this.vistaActTarea=false;
-    this.vistaLog=false;
-    this.vistaStatus=false;
+      this.vistaTarea=true;
+      this.vistaEmergencia=false;
+      this.vistaActEmer=false;
+      this.vistaActTarea=false;
+      this.vistaLog=false;
+      this.vistaStatus=false;
     } ,
     emergencia(){
-    this.vistaTarea=false;
-    this.vistaEmergencia=true;
-    this.vistaActEmer=false;
-    this.vistaActTarea=false;
-    this.vistaLog=false;
-    this.vistaStatus=false;
+      this.vistaTarea=false;
+      this.vistaEmergencia=true;
+      this.vistaActEmer=false;
+      this.vistaActTarea=false;
+      this.vistaLog=false;
+      this.vistaStatus=false;
     },
     log(){
-        this.vistaTarea=false;
-        this.vistaEmergencia=false;
-        this.vistaActEmer=false;
-        this.vistaActTarea=false;
-        this.vistaLog=true;
-        this.vistaStatus=false;
+      this.vistaTarea=false;
+      this.vistaEmergencia=false;
+      this.vistaActEmer=false;
+      this.vistaActTarea=false;
+      this.vistaLog=true;
+      this.vistaStatus=false;
     },
     status(){
-        this.vistaTarea=false;
-        this.vistaEmergencia=false;
-        this.vistaActEmer=false;
-        this.vistaActTarea=false;
-        this.vistaLog=false;
-        this.vistaStatus=true;
+      this.vistaTarea=false;
+      this.vistaEmergencia=false;
+      this.vistaActEmer=false;
+      this.vistaActTarea=false;
+      this.vistaLog=false;
+      this.vistaStatus=true;
     },
     verTarea(){
-    this.vistaTarea=false;
-    this.vistaEmergencia=false;
-    this.vistaActEmer=false;
-    this.vistaActTarea=true;
-    this.vistaLog=false;
-    this.vistaStatus=false;
+      this.vistaTarea=false;
+      this.vistaEmergencia=false;
+      this.vistaActEmer=false;
+      this.vistaActTarea=true;
+      this.vistaLog=false;
+      this.vistaStatus=false;
     },
     verEmergencia(){
-        this.vistaTarea=false;
-        this.vistaEmergencia=false;
-        this.vistaActEmer=true;
-        this.vistaActTarea=false;
-        this.vistaLog=false;
-        this.vistaStatus=false;
+      this.vistaTarea=false;
+      this.vistaEmergencia=false;
+      this.vistaActEmer=true;
+      this.vistaActTarea=false;
+      this.vistaLog=false;
+      this.vistaStatus=false;
     },
      enviarE: async function() {
       try{
         var result = await this.$axios.post('/emergencia', this.newEmergencia);
-        let dog = result.data;
+        let emer = result.data;
+        //mensaje de éxito
+          //...
+      } catch (error) {
+        //mensaje de error
+        console.log('error', error)
+      }
+
+    },
+
+    enviarT: async function() {
+      try{
+        var result = await this.$axios.post('/tarea', this.newTarea);
+        let tar = result.data;
         //mensaje de éxito
           //...
       } catch (error) {
