@@ -1,20 +1,20 @@
 package cl.tdb.voluntariadodb.models;
 
 public class Log_Emergencia {
-    private Interger id_log;
-    private Interger id_emergencia;
+    private int id_log;
+    private int id_emergencia;
     private String nombre_usuario;
 
-    public Interger getIdLog() {
+    public int getIdLog() {
         return id_log;
     }
-    public void setIdLog(Interger id_log) {
+    public void setIdLog(int id_log) {
         this.id_log = id_log;
     }
-    public Interger getIdEmergencia() {
+    public int getIdEmergencia() {
         return id_emergencia;
     }
-    public void setIdTarea(Interger id_emergencia) {
+    public void setIdTarea(int id_emergencia) {
         this.id_emergencia = id_emergencia;
     }
     public String getNombre_usuario() {

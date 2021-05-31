@@ -30,7 +30,7 @@ public class InstitucionService {
     @GetMapping("/instituciones/count") 
     public String countInstituciones(){
         int total = institucionRepository.countInstituciones();
-        return String.format("Tienes %i instituciones!!", total);
+        return String.format("Tienes %s instituciones!!", total);
     }
 
 }

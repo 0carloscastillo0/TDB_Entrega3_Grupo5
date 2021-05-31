@@ -1,14 +1,14 @@
 package cl.tdb.voluntariadodb.models;
 
 public class Estado_Tarea {
-    private Interger id;
+    private int id;
     private String descripcion;
 
-    public Interger getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Interger id) {
+    public void setId(int id) {
         this.id = id;
     }
     public String getDescripcion() {

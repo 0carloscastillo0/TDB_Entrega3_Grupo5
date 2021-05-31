@@ -28,7 +28,7 @@ public class EmergenciaService {
     @PostMapping
     @ResponseBody
     public Emergencia crearEmergencia(@RequestBody Emergencia emergencia){
-        Integer resultado = emergenciaRepository.crearEmergencia(emergencia);
+        int resultado = emergenciaRepository.crearEmergencia(emergencia);
         return resultado;
     }
 

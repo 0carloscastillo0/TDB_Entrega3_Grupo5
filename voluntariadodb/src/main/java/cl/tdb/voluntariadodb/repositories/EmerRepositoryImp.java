@@ -9,7 +9,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 
-
+/*
 @Repository
 public class EmerRepositoryImp implements EmergenciaRepository{
 
@@ -25,3 +25,4 @@ public class EmerRepositoryImp implements EmergenciaRepository{
 
     }
 }
+*/
