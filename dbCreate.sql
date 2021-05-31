@@ -6,6 +6,8 @@
 -- Dumped by pg_dump version 13.2 (Ubuntu 13.2-1.pgdg20.04+1)
 
 
+
+
 --
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -38,6 +40,7 @@ ALTER DATABASE voluntariadodb OWNER TO postgres;
 
 
 
+
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -52,19 +55,6 @@ SET row_security = off;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
-
---
--- Name: eme_habilidad; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.eme_habilidad (
-    id_eme_habilidad integer NOT NULL,
-    "id_emergencia" integer,
-    "id_habilidad" integer
-);
-
-
-ALTER TABLE public.eme_habilidad OWNER TO postgres;
 
 --
 -- Name: emergencia; Type: TABLE; Schema: public; Owner: postgres
@@ -93,20 +83,6 @@ CREATE TABLE public.estado_tarea (
 ALTER TABLE public.estado_tarea OWNER TO postgres;
 
 --
--- Name: habilidad; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.habilidad (
-    id_habilidad integer NOT NULL,
-    nombre_habilidad text,
-    descripcion_habilidad text,
-    valoracion_habilidad integer
-);
-
-
-ALTER TABLE public.habilidad OWNER TO postgres;
-
---
 -- Name: institucion; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -120,18 +96,44 @@ CREATE TABLE public.institucion (
 ALTER TABLE public.institucion OWNER TO postgres;
 
 --
--- Name: ranking; Type: TABLE; Schema: public; Owner: postgres
+-- Name: log; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.ranking (
-    id_ranking integer NOT NULL,
-    valoracion_ranking integer,
-    "id_voluntario" integer,
-    "id_tarea" integer
+CREATE TABLE public.log (
+    id_log integer NOT NULL,
+    nombre text
 );
 
 
-ALTER TABLE public.ranking OWNER TO postgres;
+ALTER TABLE public.log OWNER TO postgres;
+
+--
+-- Name: log_emergencia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.log_emergencia (
+    id_log_emergencia text NOT NULL,
+    "id_log" integer,
+    "id_emergencia" integer,
+    nombre_usuario text
+);
+
+
+ALTER TABLE public.log_emergencia OWNER TO postgres;
+
+--
+-- Name: log_tarea; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.log_tarea (
+    id_log_tarea integer NOT NULL,
+    "id_log" integer,
+    "id_tarea" integer,
+    nombre_usuario text
+);
+
+
+ALTER TABLE public.log_tarea OWNER TO postgres;
 
 --
 -- Name: tarea; Type: TABLE; Schema: public; Owner: postgres
@@ -153,49 +155,9 @@ CREATE TABLE public.tarea (
 ALTER TABLE public.tarea OWNER TO postgres;
 
 --
--- Name: tarea_habilidad; Type: TABLE; Schema: public; Owner: postgres
+-- Data for Name: emergencia; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.tarea_habilidad (
-    id_tarea_habilidad integer NOT NULL,
-    "id_tarea" integer,
-    "id_habilidad" integer
-);
-
-
-ALTER TABLE public.tarea_habilidad OWNER TO postgres;
-
---
--- Name: vol_habilidad; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.vol_habilidad (
-    id_vol_habilidad integer NOT NULL,
-    "id_voluntario" integer,
-    "id_habilidad" integer
-);
-
-
-ALTER TABLE public.vol_habilidad OWNER TO postgres;
-
---
--- Name: voluntario; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.voluntario (
-    id_voluntario integer NOT NULL,
-    nombre_voluntario text,
-    disponibilidad_voluntario boolean,
-    fnacimiento_voluntario date
-);
-
-
-
-ALTER TABLE ONLY public.eme_habilidad
-    ADD CONSTRAINT eme_habilidad_pkey PRIMARY KEY (id_eme_habilidad);
-
-
---
 -- Name: emergencia emergencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -212,14 +174,6 @@ ALTER TABLE ONLY public.estado_tarea
 
 
 --
--- Name: habilidad habilidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.habilidad
-    ADD CONSTRAINT habilidad_pkey PRIMARY KEY (id_habilidad);
-
-
---
 -- Name: institucion institucion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -228,19 +182,27 @@ ALTER TABLE ONLY public.institucion
 
 
 --
--- Name: ranking ranking_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: log_emergencia log_emergencia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.ranking
-    ADD CONSTRAINT ranking_pkey PRIMARY KEY (id_ranking);
+ALTER TABLE ONLY public.log_emergencia
+    ADD CONSTRAINT log_emergencia_pkey PRIMARY KEY (id_log_emergencia);
 
 
 --
--- Name: tarea_habilidad tarea_habilidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: log log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.tarea_habilidad
-    ADD CONSTRAINT tarea_habilidad_pkey PRIMARY KEY (id_tarea_habilidad);
+ALTER TABLE ONLY public.log
+    ADD CONSTRAINT log_pkey PRIMARY KEY (id_log);
+
+
+--
+-- Name: log_tarea log_tarea_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.log_tarea
+    ADD CONSTRAINT log_tarea_pkey PRIMARY KEY (id_log_tarea);
 
 
 --
@@ -252,44 +214,31 @@ ALTER TABLE ONLY public.tarea
 
 
 --
--- Name: vol_habilidad vol_habilidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- PostgreSQL database dump complete
 --
-
-ALTER TABLE ONLY public.vol_habilidad
-    ADD CONSTRAINT vol_habilidad_pkey PRIMARY KEY (id_vol_habilidad);
-
-
---
--- Name: voluntario voluntario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.voluntario
-    ADD CONSTRAINT voluntario_pkey PRIMARY KEY (id_voluntario);
-
-
--- Foraneas
-
-ALTER TABLE ONLY public.eme_habilidad
-    ADD CONSTRAINT fk_emergencia_eme_habilidad FOREIGN KEY ("id_emergencia") REFERENCES public.emergencia(id_emergencia);
-
-
-ALTER TABLE ONLY public.eme_habilidad
-    ADD CONSTRAINT fk_habilidad_eme_habilidad FOREIGN KEY ("id_habilidad") REFERENCES public.habilidad(id_habilidad);
 
 
 ALTER TABLE ONLY public.emergencia
     ADD CONSTRAINT fk_emergencia_institucion FOREIGN KEY ("id_institucion") REFERENCES public.institucion(id_institucion);
 
 
-ALTER TABLE ONLY public.ranking 
-    ADD CONSTRAINT fk_ranking_voluntario FOREIGN KEY ("id_voluntario") REFERENCES public.voluntario(id_voluntario);
+
+ALTER TABLE ONLY public.log_emergencia 
+    ADD CONSTRAINT fk_log_emergencia_log FOREIGN KEY ("id_log") REFERENCES public.log(id_log);
+
+
+ALTER TABLE ONLY public.log_emergencia 
+    ADD CONSTRAINT fk_log_emergencia_emergencia FOREIGN KEY ("id_emergencia") REFERENCES public.emergencia(id_emergencia);
 
 
 
-ALTER TABLE ONLY public.ranking 
-    ADD CONSTRAINT fk_ranking_tarea FOREIGN KEY ("id_tarea") REFERENCES public.tarea(id_tarea);
+
+ALTER TABLE ONLY public.log_tarea
+    ADD CONSTRAINT fk_log_tarea_tarea FOREIGN KEY ("id_tarea") REFERENCES public.tarea(id_tarea);
 
 
+ALTER TABLE ONLY public.log_tarea
+    ADD CONSTRAINT fk_log_tarea_log FOREIGN KEY ("id_log") REFERENCES public.log(id_log);
 
 
 
@@ -301,25 +250,3 @@ ALTER TABLE ONLY public.tarea
 
 ALTER TABLE ONLY public.tarea
     ADD CONSTRAINT fk_tarea_emergencia FOREIGN KEY ("id_emergencia") REFERENCES public.emergencia(id_emergencia);
-
-
-ALTER TABLE ONLY public.tarea_habilidad
-    ADD CONSTRAINT fk_tarea_habilidad_tarea FOREIGN KEY ("id_tarea") REFERENCES public.tarea(id_tarea);
-
-
-ALTER TABLE ONLY public.tarea_habilidad
-    ADD CONSTRAINT fk_tarea_habilidad_habilidad FOREIGN KEY ("id_habilidad") REFERENCES public.habilidad(id_habilidad);
-
-
-
-ALTER TABLE ONLY public.vol_habilidad
-    ADD CONSTRAINT fk_vol_habilidad_voluntario FOREIGN KEY ("id_voluntario") REFERENCES public.voluntario(id_voluntario);
-
-ALTER TABLE ONLY public.vol_habilidad
-    ADD CONSTRAINT fk_vol_habilidad_habilidad FOREIGN KEY ("id_habilidad") REFERENCES public.habilidad(id_habilidad);
-
-
---
--- PostgreSQL database dump complete
---
-
