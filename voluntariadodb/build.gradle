@@ -14,11 +14,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-<<<<<<< HEAD
 	implementation group: 'org.sql2o', name: 'sql2o', version: '1.6.0'
-=======
-	implementation group: 'org.sql2o', name: 'sql2o', version: '1.6.0'     
->>>>>>> b35caa509020115aa07e5ddc68124410923589d4
 	implementation 'org.postgresql:postgresql:42.2.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

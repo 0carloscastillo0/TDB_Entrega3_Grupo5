@@ -25,10 +25,10 @@ public class EmergenciaService {
         this.emergenciaRepository = emergenciaRepository;
     }
 
-    @PostMapping
+    @PostMapping("/emergencia")
     @ResponseBody
     public Emergencia crearEmergencia(@RequestBody Emergencia emergencia){
-        int resultado = emergenciaRepository.crearEmergencia(emergencia);
+        Emergencia resultado = emergenciaRepository.crearEmergencia(emergencia);
         return resultado;
     }
 
