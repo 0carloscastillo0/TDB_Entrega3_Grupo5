@@ -81,12 +81,13 @@
       <label> Emergencia a Finalizar </label><br>
       <div class="grayBoxLE">
       <!--Mostrar Emergencias con estado "2"-->
-        Emergencias a Finalizar
-        <!--<select name="cars" id="cars" >-->
-          <li> v-for="(e3, index) in emergencias3" :key="index">
-            {{e3.nombre_emergencia}}
-          </li>
-        <!--</select>-->
+      
+          <ul class="item-list">
+            <li v-for="(e3, index) in emergencias3" :key="index">
+              {{e3.nombre_emergencia}}
+            </li>
+          </ul>
+    
       </div>
       <button> Finalizar </button>
     </div>
@@ -95,10 +96,13 @@
       <label> Emergencia a Cancelar </label><br>
       <div class="grayBoxLE">
       <!--Mostrar Emergencias con estado "2"-->
-        Emergencias a Cancelar
-        <li> v-for="(e2, index) in emergencias2" :key="index">
+
+        <ul class="item-list">
+          <li v-for="(e2, index) in emergencias2" :key="index">
             {{e2.nombre_emergencia}}
           </li>
+        </ul>
+    
       </div>
       <button> Cancelar </button>
     </div>    
@@ -107,10 +111,13 @@
       <label> Emergencia a Iniciar </label><br>
       <div class="grayBoxLE">
       <!--Mostrar Emergencias con estado "1"-->
-        Emergencias a Iniciar
-        <li> v-for="(e1, index) in emergencias1" :key="index">
-          {{e1.nombre_emergencia}}
-        </li>
+        
+        <ul class="item-list">
+          <li v-for="(e1, index) in emergencias1" :key="index">
+            {{e1.nombre_emergencia}}
+          </li>
+        </ul>
+     
       </div>
       <button> Iniciar </button>
     </div>    
@@ -146,9 +153,13 @@
       <div class="grayBoxL">
         <label> Tareas No Activas </label>
         <!--Mostrar Tareas con estado "1"-->
-          <li> v-for="(t1, index) in tareas1" :key="index">
-            {{t1.nombre_tarea}}
-          </li>
+          
+          <ul class="item-list">
+            <li v-for="(t1, index) in tareas1" :key="index">
+              {{t1.nombre_tarea}}
+            </li>
+          </ul>
+        
       </div>
       <button> Iniciar </button>
     </div>
@@ -158,9 +169,13 @@
       <div class="grayBoxL">
         <label> Tareas Activas </label>
         <!--Mostrar Tareas con estado "2"-->
-          <li> v-for="(t2, index) in tareas2" :key="index">
-            {{t2.nombre_tarea}}
-          </li>
+          
+          <ul class="item-list">
+            <li v-for="(t2, index) in tareas2" :key="index">
+              {{t2.nombre_tarea}}
+            </li>
+          </ul>
+          
       </div>
       <button> Terminar </button>
     </div>
@@ -296,7 +311,7 @@
     getEmergencia3: async function(){
       try {
         let response = await this.$axios.get('/emergencia3');
-        this.items = response.data;
+        this.emergencias3 = response.data;
         console.log(response)
       } catch (error) {
         console.log('error', error);
@@ -305,7 +320,7 @@
     getEmergencia2: async function(){
       try {
         let response = await this.$axios.get('/emergencia2');
-        this.items = response.data;
+        this.emergencias2 = response.data;
         console.log(response)
       } catch (error) {
         console.log('error', error);
@@ -314,7 +329,7 @@
     getEmergencia1: async function(){
       try {
         let response = await this.$axios.get('/emergencia1');
-        this.items = response.data;
+        this.emergencias1 = response.data;
         console.log(response)
       } catch (error) {
         console.log('error', error);
@@ -323,7 +338,7 @@
     getTarea2: async function(){
       try {
         let response = await this.$axios.get('/tarea2');
-        this.items = response.data;
+        this.tareas2 = response.data;
         console.log(response)
       } catch (error) {
         console.log('error', error);
@@ -332,14 +347,15 @@
     getTarea1: async function(){
       try {
         let response = await this.$axios.get('/tarea1');
-        this.items = response.data;
+        this.tareas1 = response.data;
         console.log(response)
       } catch (error) {
         console.log('error', error);
       }
     }
   },
-  //Funciónes que se ejecuta al cargar los componentes necesarios
+    
+    //Funciónes que se ejecuta al cargar los componentes necesarios
   created:function(){
     this.getEmergencia3();
   },
@@ -354,6 +370,7 @@
   },
   created:function(){
     this.getTarea1();
+  }
   }
 
 </script>
