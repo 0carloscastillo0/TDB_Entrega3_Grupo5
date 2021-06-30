@@ -2,7 +2,8 @@ import Vue from 'vue'
 import { wrapFunctional } from './utils'
 
 const components = {
-  Logo: () => import('../..\\components\\Logo.vue' /* webpackChunkName: "components/logo" */).then(c => wrapFunctional(c.default || c))
+  NuxtLogo: () => import('../..\\components\\NuxtLogo.vue' /* webpackChunkName: "components/nuxt-logo" */).then(c => wrapFunctional(c.default || c)),
+  VistaInicial: () => import('../..\\components\\VistaInicial.vue' /* webpackChunkName: "components/vista-inicial" */).then(c => wrapFunctional(c.default || c))
 }
 
 for (const name in components) {

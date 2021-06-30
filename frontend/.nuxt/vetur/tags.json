@@ -1,5 +1,8 @@
 {
-  "Logo": {
-    "description": "Auto imported from components/Logo.vue"
+  "NuxtLogo": {
+    "description": "Auto imported from components/NuxtLogo.vue"
+  },
+  "VistaInicial": {
+    "description": "Auto imported from components/VistaInicial.vue"
   }
 }
