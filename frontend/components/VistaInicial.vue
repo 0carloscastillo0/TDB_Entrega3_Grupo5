@@ -8,6 +8,7 @@
     <button @click="verTarea">Ver Tareas</button>
     <button @click="status">Estados Emergencias</button>
     <button @click="log">Historial</button>
+    <button @click="listEmergencias">Listar emergencias</button>
 <!--------------------------------------------------->  
     
     -------------------------------------------------->  
@@ -209,7 +210,31 @@
        </div>
     </div>
     
-    
+    <div class="box" v-if="vistaListEmergencias">
+      <p style="color:black;background: #faff71;">Listar emergencias por región</p>
+      <form>
+        <div class="cajaTextoLE">
+          <label for="miInput">Seleccione una región :</label><br>
+        </div>
+        
+        <div class="cajaRegiones">
+            <select name="cars" id="cars">
+              <!--Por mientras, despues hacer llamado a servicio rest para mostrar todos los nombres de regiones dentro de la caja-->
+              <option value="1">Arica y Parinacota</option>
+              <option value="2">Tarapaca</option>
+              <option value="3">Coquimbo</option>
+              <option value="4">Valparaiso</option>
+              <option value="5">Metropolitana</option>
+              <option value="6">Maule</option>
+              <option value="7">Los ríos</option>
+            </select>
+        </div>
+
+        <div class="boxListE">
+          <!--Listar mediante servicio rest las emergencia según la region escogida-->
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 <!--------------------------------------------------->    
@@ -225,6 +250,7 @@
       vistaActTarea: false,
       vistaLog: true,
       vistaStatus: false,
+      vistaListEmergencias: false,
       newEmergencia:{ },
       newTarea:{ },
       emergencias3:[],
@@ -242,6 +268,7 @@
       this.vistaActTarea=false;
       this.vistaLog=false;
       this.vistaStatus=false;
+      this.vistaListEmergencias= false;
     } ,
     emergencia(){
       this.vistaTarea=false;
@@ -250,6 +277,7 @@
       this.vistaActTarea=false;
       this.vistaLog=false;
       this.vistaStatus=false;
+      this.vistaListEmergencias= false;
     },
     log(){
       this.vistaTarea=false;
@@ -258,6 +286,7 @@
       this.vistaActTarea=false;
       this.vistaLog=true;
       this.vistaStatus=false;
+      this.vistaListEmergencias= false;
     },
     status(){
       this.vistaTarea=false;
@@ -266,6 +295,7 @@
       this.vistaActTarea=false;
       this.vistaLog=false;
       this.vistaStatus=true;
+      this.vistaListEmergencias= false;
     },
     verTarea(){
       this.vistaTarea=false;
@@ -274,6 +304,7 @@
       this.vistaActTarea=true;
       this.vistaLog=false;
       this.vistaStatus=false;
+      this.vistaListEmergencias= false;
     },
     verEmergencia(){
       this.vistaTarea=false;
@@ -282,6 +313,16 @@
       this.vistaActTarea=false;
       this.vistaLog=false;
       this.vistaStatus=false;
+      this.vistaListEmergencias= false;
+    },
+    listEmergencias(){
+      this.vistaTarea=false;
+      this.vistaEmergencia=false;
+      this.vistaActEmer=false;
+      this.vistaActTarea=false;
+      this.vistaLog=false;
+      this.vistaStatus=false;
+      this.vistaListEmergencias= true;
     },
      enviarE: async function() {
       try{
@@ -413,6 +454,7 @@ button {
     left: 0px;
     top: 611px;
     background: #ECEDC9;
+
   }
   
 .box {
@@ -635,5 +677,38 @@ button {
     background: #C4C4C4;
     border-radius: 33px;
   }
+
+  .cajaRegiones{
+    position: absolute;
+    width: 300px;
+    height: 25px;
+    left: 254px;
+    top: 60px;
+    background: #f0f2c5;
+    color: black;
+    border-radius: 33px;
+  }
+
+  .cajaTextoLE{
+   position: absolute;
+   width: 280px;
+   height: 25px;
+   left: 15px;
+   top: 60px;
+   background: #f0f2c5;
+   color: black;
+   border-radius: 33px;
+  }
+
+  .boxListE{
+    position: absolute;
+    width: 880px;
+    height: 340px;
+    left: 50px;
+    top: 100px;
+    color: black;
+    background: #C4C4C4;
+    border-radius: 33px;
+ }
   
 </style>
