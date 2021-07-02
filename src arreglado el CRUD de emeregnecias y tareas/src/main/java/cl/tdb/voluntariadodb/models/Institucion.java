@@ -1,31 +1,31 @@
 package cl.tdb.voluntariadodb.models;
 
 public class Institucion {
-    private int id;
-    private String nombre;
-    private String descripcion;
+    private int id_institucion;
+    private String nombre_institucion;
+    private String descripcion_institucion;
 
     public int getId() {
-        return id;
+        return id_institucion;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.id_institucion = id;
     }
 
     public String getNombre() {
-        return nombre;
+        return nombre_institucion;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre_institucion = nombre;
     }
     public String getDescripcion() {
-        return descripcion;
+        return descripcion_institucion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+        this.descripcion_institucion = descripcion;
     }
 
 

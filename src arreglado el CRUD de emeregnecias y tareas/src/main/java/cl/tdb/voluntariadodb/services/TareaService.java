@@ -48,6 +48,10 @@ public class TareaService{
     public List<Tarea> getTarea(@PathVariable int id){
         return tareaRepository.show(id);
     }
+    @GetMapping("/tarea/emergencia/{id}")
+    public List<Tarea> getTareasEmergencia(@PathVariable int id){
+        return tareaRepository.tareas(id);
+    }
 
 
     // actualizar U

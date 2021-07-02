@@ -9,5 +9,6 @@ public interface TareaRepository {
     public List<Tarea> getAll();
     public List<Tarea> show(int id);
     public void delete(int id);
+    public List<Tarea> tareas(int id_emergencia);
 }
 

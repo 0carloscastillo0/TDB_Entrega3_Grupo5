@@ -68,6 +68,18 @@ public class TarRepositoryImp implements TareaRepository{
         }
     }
 
+    @Override
+    public List<Tarea> tareas(int id_emergencia) {
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("select id_tarea, nombre_tarea, cant_vol_inscritos from Tarea where id_emergencia = :id order by cant_vol_inscritos")
+                    .addParameter("id",id_emergencia)
+                    .executeAndFetch(Tarea.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 
     @Override
     public void delete(int id) {

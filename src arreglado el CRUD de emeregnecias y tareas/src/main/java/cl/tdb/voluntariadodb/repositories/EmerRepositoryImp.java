@@ -19,7 +19,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public Emergencia crear(Emergencia emergencia){
         try(Connection conn = sql2o.open()){
-            int idAnterior = conn.createQuery("SELECT COUNT(*) FROM institucion").executeScalar(Integer.class);;
+            int idAnterior = conn.createQuery("SELECT COUNT(*) FROM emergencia").executeScalar(Integer.class);;
             String sql = "INSERT INTO emergencia (id_emergencia ,nombre_emergencia, descripcion_emergencia, estado_emergencia, id_institucion)" +
             "VALUES (:id, :nombre, :descripcion, :estado, :idInstitucion)";
             conn.createQuery(sql, true)
@@ -40,7 +40,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public List<Emergencia> getAll() {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("select * from Emergencia")
+            return conn.createQuery("select * from emergencia")
                     .executeAndFetch(Emergencia.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -52,7 +52,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public List<Emergencia> show(int id) {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("select * from Emergencia where id_emergencia = :id")
+            return conn.createQuery("select * from emergencia where id_emergencia = :id")
                     .addParameter("id",id)
                     .executeAndFetch(Emergencia.class);
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public void delete(int id) {
         try(Connection conn = sql2o.open()){
-            conn.createQuery("DELETE from Emergencia where id_emergencia = :id")
+            conn.createQuery("DELETE from emergencia where id_emergencia = :id")
                     .addParameter("id",id)
                     .executeUpdate();
         }
