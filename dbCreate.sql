@@ -106,7 +106,8 @@ CREATE TABLE public.log_emergencia (
     id_log_emergencia text NOT NULL,
     accion text,
     "id_emergencia" integer,
-    nombre_coordinador text
+    nombre_coordinador text,
+    time_stamp date
 );
 
 
@@ -120,7 +121,8 @@ CREATE TABLE public.log_tarea (
     id_log_tarea integer NOT NULL,
     accion text,
     "id_tarea" integer,
-    nombre_coordinador text
+    nombre_coordinador text,
+    time_stamp date
 );
 
 
