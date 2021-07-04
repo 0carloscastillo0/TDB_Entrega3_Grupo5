@@ -96,17 +96,7 @@ CREATE TABLE public.institucion (
 
 ALTER TABLE public.institucion OWNER TO postgres;
 
---
--- Name: log; Type: TABLE; Schema: public; Owner: postgres
---
 
-CREATE TABLE public.log (
-    id_log integer NOT NULL,
-    nombre text
-);
-
-
-ALTER TABLE public.log OWNER TO postgres;
 
 --
 -- Name: log_emergencia; Type: TABLE; Schema: public; Owner: postgres
@@ -114,9 +104,9 @@ ALTER TABLE public.log OWNER TO postgres;
 
 CREATE TABLE public.log_emergencia (
     id_log_emergencia text NOT NULL,
-    "id_log" integer,
+    accion text,
     "id_emergencia" integer,
-    nombre_usuario text
+    nombre_coordinador text
 );
 
 
@@ -128,9 +118,9 @@ ALTER TABLE public.log_emergencia OWNER TO postgres;
 
 CREATE TABLE public.log_tarea (
     id_log_tarea integer NOT NULL,
-    "id_log" integer,
+    accion text,
     "id_tarea" integer,
-    nombre_usuario text
+    nombre_coordinador text
 );
 
 
@@ -285,13 +275,6 @@ ALTER TABLE ONLY public.log_emergencia
     ADD CONSTRAINT log_emergencia_pkey PRIMARY KEY (id_log_emergencia);
 
 
---
--- Name: log log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.log
-    ADD CONSTRAINT log_pkey PRIMARY KEY (id_log);
-
 
 --
 -- Name: log_tarea log_tarea_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
@@ -363,9 +346,6 @@ ALTER TABLE ONLY public.emergencia
 
 
 
-ALTER TABLE ONLY public.log_emergencia 
-    ADD CONSTRAINT fk_log_emergencia_log FOREIGN KEY ("id_log") REFERENCES public.log(id_log);
-
 
 ALTER TABLE ONLY public.log_emergencia 
     ADD CONSTRAINT fk_log_emergencia_emergencia FOREIGN KEY ("id_emergencia") REFERENCES public.emergencia(id_emergencia);
@@ -376,9 +356,6 @@ ALTER TABLE ONLY public.log_emergencia
 ALTER TABLE ONLY public.log_tarea
     ADD CONSTRAINT fk_log_tarea_tarea FOREIGN KEY ("id_tarea") REFERENCES public.tarea(id_tarea);
 
-
-ALTER TABLE ONLY public.log_tarea
-    ADD CONSTRAINT fk_log_tarea_log FOREIGN KEY ("id_log") REFERENCES public.log(id_log);
 
 
 

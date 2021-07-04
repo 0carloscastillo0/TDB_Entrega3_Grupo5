@@ -113,28 +113,8 @@ INSERT INTO public.ranking(id_ranking, valoracion_ranking, id_voluntario, id_tar
 
 
 
-INSERT INTO public.log (id_log, nombre) VALUES (1,'crear');
-INSERT INTO public.log (id_log, nombre) VALUES (2,'iniciar');
-INSERT INTO public.log (id_log, nombre) VALUES (3,'cancelar');
-INSERT INTO public.log (id_log, nombre) VALUES (4,'finalizar');
-
-
-INSERT INTO public.log_emergencia (id_log_emergencia, id_log,id_emergencia,nombre_usuario) VALUES (1,1,1,'default');
-INSERT INTO public.log_emergencia (id_log_emergencia, id_log,id_emergencia,nombre_usuario) VALUES (2,1,2,'default');
-INSERT INTO public.log_emergencia (id_log_emergencia, id_log,id_emergencia,nombre_usuario) VALUES (3,1,3,'default');
-INSERT INTO public.log_emergencia (id_log_emergencia, id_log,id_emergencia,nombre_usuario) VALUES (4,1,4,'default');
-INSERT INTO public.log_emergencia (id_log_emergencia, id_log,id_emergencia,nombre_usuario) VALUES (5,1,5,'default');
-INSERT INTO public.log_emergencia (id_log_emergencia, id_log,id_emergencia,nombre_usuario) VALUES (6,1,6,'default');
-INSERT INTO public.log_emergencia (id_log_emergencia, id_log,id_emergencia,nombre_usuario) VALUES (7,1,7,'default');
 
 
 
-INSERT INTO public.log_tarea (id_log_tarea, id_log,id_tarea,nombre_usuario) VALUES (1,1,1,'default');
-INSERT INTO public.log_tarea (id_log_tarea, id_log,id_tarea,nombre_usuario) VALUES (2,1,2,'default');
-INSERT INTO public.log_tarea (id_log_tarea, id_log,id_tarea,nombre_usuario) VALUES (3,1,3,'default');
-INSERT INTO public.log_tarea (id_log_tarea, id_log,id_tarea,nombre_usuario) VALUES (4,1,4,'default');
-INSERT INTO public.log_tarea (id_log_tarea, id_log,id_tarea,nombre_usuario) VALUES (5,1,5,'default');
-INSERT INTO public.log_tarea (id_log_tarea, id_log,id_tarea,nombre_usuario) VALUES (6,1,6,'default');
-INSERT INTO public.log_tarea (id_log_tarea, id_log,id_tarea,nombre_usuario) VALUES (7,1,7,'default');
 
 
