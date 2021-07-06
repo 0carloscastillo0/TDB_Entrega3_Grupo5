@@ -1,4 +1,6 @@
 package cl.tdb.voluntariadodb.models;
+
+import org.postgis.Point;
 public class Tarea {
     private int id_tarea;
     private String descripcion_tarea;
@@ -9,6 +11,8 @@ public class Tarea {
     private String fin;
     private int id_estado;
     private int id_emergencia;
+    private double longitud_tarea;
+    private double latitud_tarea;
 
     //Getter de tarea
     public int getId_tarea(){
@@ -38,6 +42,12 @@ public class Tarea {
     public int getId_emergencia() {
         return id_emergencia;
     }
+    public double getLongitud_tarea(){
+        return longitud_tarea;
+    }
+    public double getLatitud_tarea(){
+        return latitud_tarea;
+    }
 
     //Setter de tarea
     public void setId_tarea(int id_tarea){
@@ -66,6 +76,12 @@ public class Tarea {
     }
     public void setId_emergencia(int id_emergencia) {
         this.id_emergencia = id_emergencia;
+    }
+    public void setLongitud_tarea(){
+        this.longitud_tarea = longitud_tarea;
+    }
+    public void setLatitud_tarea(){
+        this.latitud_tarea = latitud_tarea;
     }
 
 }
