@@ -20,14 +20,14 @@ public class EmerRepositoryImp implements LogTareaRepository{
     public Log_Tarea crear(Log_Tarea log_tarea){
         try(Connection conn = sql2o.open()){
             int idAnterior = conn.createQuery("SELECT COUNT(*) FROM log_tarea").executeScalar(Integer.class);;
-            String sql = "INSERT INTO log_tarea (id_log_tarea ,nombre_log_tarea, descripcion_log_tarea, estado_log_tarea, id_institucion)" +
-            "VALUES (:id, :nombre, :descripcion, :estado, :idInstitucion)";
+            String sql = "INSERT INTO log_tarea (id_log_tarea , id_tarea, nombre_coordinador, accion, time_stamp)" +
+            "VALUES (:id, :id_tarea_real, :nombre, :accion, :fecha)";
             conn.createQuery(sql, true)
                 .addParameter("id",idAnterior + 1)
-                .addParameter("nombre", log_tarea.getNombre_log_tarea())
-                .addParameter("descripcion", log_tarea.getDescripcion_log_tarea())
-                .addParameter("estado", 1)
-                .addParameter("idInstitucion", log_tarea.getId_institucion())
+                .addParameter("id_tarea_real", log_tarea.getIdTarea())
+                .addParameter("nombre", log_tarea.getNombreCoordinador())
+                .addParameter("accion", log_tarea.getAccion())
+                .addParameter("fecha", log_tarea.getTimeStamp())
                 .executeUpdate();
                 log_tarea.setId_log_tarea(idAnterior + 1);
                 return log_tarea;
@@ -76,13 +76,13 @@ public class EmerRepositoryImp implements LogTareaRepository{
     @Override
     public String update(Log_Tarea log_tarea, int id){
         try(Connection conn = sql2o.open()){
-            String updateSql = "update log_tarea set estado_log_tarea = :id_estado, nombre_log_tarea=:nombre, descripcion_log_tarea=:descripcion, id_institucion=:id_ins where id_log_tarea = :id_log_tarea";
+            String updateSql = "update log_tarea set id_log_tarea=:id, id_tarea=:id_tar, nombre_coordinador=:nombre, accion=:accion_realizada, time_stamp=:fecha where id_log_tarea = :id_log_tarea";
             conn.createQuery(updateSql)
-                .addParameter("id_log_tarea",id)
-                .addParameter("nombre", log_tarea.getNombre_log_tarea())
-                .addParameter("descripcion", log_tarea.getDescripcion_log_tarea())
-                .addParameter("id_estado", log_tarea.getEstado_log_tarea())
-                .addParameter("id_ins", log_tarea.getId_institucion())
+                .addParameter("id",id)
+                .addParameter("id_tar", log_tarea.getNombre_log_tarea())
+                .addParameter("nombre", log_tarea.getDescripcion_log_tarea())
+                .addParameter("accion_realizada", log_tarea.getEstado_log_tarea())
+                .addParameter("fecha", log_tarea.getId_institucion())
                 .executeUpdate();
             return "Se actualizo la log_tarea";
         }

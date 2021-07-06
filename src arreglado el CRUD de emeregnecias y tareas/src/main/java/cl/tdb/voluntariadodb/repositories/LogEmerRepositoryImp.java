@@ -76,15 +76,15 @@ public class EmerRepositoryImp implements LogEmergenciaRepository{
     @Override
     public String update(Log_Emergencia log_emergencia, int id){
         try(Connection conn = sql2o.open()){
-            String updateSql = "update log_emergencia set estado_log_emergencia = :id_log_emergencia, nombre_log_emergencia=:nombre, descripcion_log_emergencia=:descripcion, id_institucion=:id_ins where id_log_emergencia = :id_log_emergencia";
+            String updateSql = "update log_emergencia set id_log_emergencia = :id_log, id_emergencia=:id_emer, nombre_coordinador=:nombre, accion=:accion_realizada, time_stamp=:fecha where id_log_emergencia = :id_log_emergencia";
             conn.createQuery(updateSql)
-                .addParameter("id_log_emergencia",id)
-                .addParameter("nombre", log_emergencia.getNombre_log_emergencia())
-                .addParameter("descripcion", log_emergencia.getDescripcion_log_emergencia())
-                .addParameter("id_estado", log_emergencia.getEstado_log_emergencia())
-                .addParameter("id_ins", log_emergencia.getId_institucion())
+                .addParameter("id_log",id)
+                .addParameter("id_emer", log_emergencia.getIdEmergencia())
+                .addParameter("nombre", log_emergencia.getNombreCoordinador())
+                .addParameter("accion_realizada", log_emergencia.getAccion())
+                .addParameter("fecha", log_emergencia.getTimeStamp())
                 .executeUpdate();
-            return "Se actualizo la log_emergencia";
+            return "Se actualizo el log_emergencia";
         }
     }
 
