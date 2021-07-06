@@ -54,7 +54,7 @@ INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergenci
 INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(4, 1, 'Trasladar personas', 'Ocurrio un desvorde de un rio, y se deben trasladar los habitantes cercanos a este', 6);
 INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(5, 1, 'Recolectar escombros', 'Limpieza de escombros en zonas rurales', 1);
 INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(6, 1, 'Alimentar a gente necesitada', 'Cocinar para las personas que se encuentren en situacion de calle', 6);
-INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion) VALUES(7, 1, 'Personas desaparecidas', 'Un grupo de personas ha desaparecido tras incendio en su campamento', 7);
+INSERT INTO public.emergencia(id_emergencia, estado_emergencia, nombre_emergencia, descripcion_emergencia, id_institucion,location) VALUES(7, 1, 'Personas desaparecidas', 'Un grupo de personas ha desaparecido tras incendio en su campamento', 7,ST_GeomFromText('POINT(-72.928177 -41.474096)', 4326));
 
 
 

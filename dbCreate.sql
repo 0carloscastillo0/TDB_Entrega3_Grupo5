@@ -52,9 +52,57 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+
+--
+-- Name: topology; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA topology;
+
+
+ALTER SCHEMA topology OWNER TO postgres;
+
+--
+-- Name: SCHEMA topology; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA topology IS 'PostGIS Topology schema';
+
+
+--
+-- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION postgis IS 'PostGIS geometry, geography, and raster spatial types and functions';
+
+
+--
+-- Name: postgis_topology; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS postgis_topology WITH SCHEMA topology;
+
+
+--
+-- Name: EXTENSION postgis_topology; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION postgis_topology IS 'PostGIS topology spatial types and functions';
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+
+
 
 --
 -- Name: emergencia; Type: TABLE; Schema: public; Owner: postgres
@@ -68,7 +116,7 @@ CREATE TABLE public.emergencia (
     "id_institucion" integer
 );
 
-
+SELECT AddGeometryColumn('emergencia','location','4326','POINT',2);
 ALTER TABLE public.emergencia OWNER TO postgres;
 
 --
@@ -144,7 +192,7 @@ CREATE TABLE public.tarea (
     "id_emergencia" integer
 );
 
-
+SELECT AddGeometryColumn('tarea','location','4326','POINT',2);
 ALTER TABLE public.tarea OWNER TO postgres;
 
 --
