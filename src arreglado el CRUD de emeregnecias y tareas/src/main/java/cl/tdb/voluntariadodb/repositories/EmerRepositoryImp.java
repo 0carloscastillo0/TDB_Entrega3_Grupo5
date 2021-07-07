@@ -10,6 +10,8 @@ import org.sql2o.Sql2o;
 
 import java.util.List;
 
+import cl.tdb.voluntariadodb.repositories.LogEmerRepository;
+
 @Repository
 public class EmerRepositoryImp implements EmergenciaRepository{
 
@@ -30,6 +32,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
                 .addParameter("idInstitucion", emergencia.getId_institucion())
                 .executeUpdate();
                 emergencia.setId_emergencia(idAnterior + 1);
+                LogEmerRepositoryImp.crear(idAnterior + 1, emergencia.getNombre_emergencia(), "Creada");
                 return emergencia;
         }
 
