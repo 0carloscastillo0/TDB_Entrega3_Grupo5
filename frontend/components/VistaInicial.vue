@@ -21,15 +21,21 @@
           <input id="nombre" size="30" v-model="newEmergencia.nombre_emergencia" type="text">
         </div>
         <div class="cajaDer">
+           <label for="miInput">Institucion</label><br>
           <select name="cars" id="cars" v-model="newEmergencia.id_institucion">
-            <option value="1">Bomberos</option>
+          <!--  <option value="1">Bomberos</option>
             <option value="2">Cruz Roja</option>
             <option value="3">Voluntariado USACH</option>
             <option value="4">Hermanas de Chicureo</option>
             <option value="5">Santa Maria</option>
             <option value="6">Manos Mormonas</option>
-            <option value="7">Fundacion San Vicente</option>
+            <option value="7">Fundacion San Vicente</option>-->
+            <option  v-for="(institucion, index) in instituciones" :key="index">
+              {{index + 1}} {{ institucion.nombre_institucion }}
+            </option>
           </select>
+          <span>Seleccionado: {{newEmergencia.id_institucion}}</span>
+          
         </div>
         <div class="cajaAbaIzq">
           <label for="miInput">Descripcion Emergencia</label><br>
@@ -256,6 +262,7 @@
       emergencias3:[],
       emergencias2:[],
       emergencias1:[],
+      instituciones:[],
       tareas2:[],
       tareas1:[]
     }
@@ -323,6 +330,15 @@
       this.vistaLog=false;
       this.vistaStatus=false;
       this.vistaListEmergencias= true;
+    },
+    getData: async function(){
+      try {
+          let response = await this.$axios.get('/institucion');
+          this.instituciones  = response.data;
+          console.log(response)
+      } catch (error) {
+          console.log('error', error);
+      }
     },
      enviarE: async function() {
       try{
@@ -411,7 +427,11 @@
   },
   created:function(){
     this.getTarea1();
+  },
+  created:function(){
+    this.getData();
   }
+
   }
 
 </script>
