@@ -10,27 +10,29 @@ import org.sql2o.Sql2o;
 
 import java.util.List;
 
+
+import java.sql.Timestamp;
 @Repository
-public class EmerRepositoryImp implements LogTareaRepository{
+public class LogTareaRepImp implements LogTareaRepository{
 
     @Autowired
     private Sql2o sql2o;
 
     @Override
-    public Log_Tarea crear(Log_Tarea log_tarea){
+    public void crear(int idTarea, String nombreCoordinador, String accionRealizada){
         try(Connection conn = sql2o.open()){
-            int idAnterior = conn.createQuery("SELECT COUNT(*) FROM log_tarea").executeScalar(Integer.class);;
+            int idAnterior = conn.createQuery("SELECT COUNT(*) FROM log_tarea").executeScalar(Integer.class);
+            Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
             String sql = "INSERT INTO log_tarea (id_log_tarea , id_tarea, nombre_coordinador, accion, time_stamp)" +
             "VALUES (:id, :id_tarea_real, :nombre, :accion, :fecha)";
             conn.createQuery(sql, true)
                 .addParameter("id",idAnterior + 1)
-                .addParameter("id_tarea_real", log_tarea.getIdTarea())
-                .addParameter("nombre", log_tarea.getNombreCoordinador())
-                .addParameter("accion", log_tarea.getAccion())
-                .addParameter("fecha", log_tarea.getTimeStamp())
+                .addParameter("id_tarea_real", idTarea)
+                .addParameter("nombre", nombreCoordinador)
+                .addParameter("accion", accionRealizada)
+                .addParameter("fecha",timeStamp )
                 .executeUpdate();
-                log_tarea.setId_log_tarea(idAnterior + 1);
-                return log_tarea;
+
         }
 
     }
@@ -79,13 +81,14 @@ public class EmerRepositoryImp implements LogTareaRepository{
             String updateSql = "update log_tarea set id_log_tarea=:id, id_tarea=:id_tar, nombre_coordinador=:nombre, accion=:accion_realizada, time_stamp=:fecha where id_log_tarea = :id_log_tarea";
             conn.createQuery(updateSql)
                 .addParameter("id",id)
-                .addParameter("id_tar", log_tarea.getNombre_log_tarea())
-                .addParameter("nombre", log_tarea.getDescripcion_log_tarea())
-                .addParameter("accion_realizada", log_tarea.getEstado_log_tarea())
-                .addParameter("fecha", log_tarea.getId_institucion())
+                .addParameter("id_tar", log_tarea.getIdTarea())
+                .addParameter("nombre", log_tarea.getNombreCoordinador())
+                .addParameter("accion_realizada", log_tarea.getAccion())
+                .addParameter("fecha", log_tarea.getTimeStamp())
                 .executeUpdate();
             return "Se actualizo la log_tarea";
         }
     }
 
 }
+

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import java.time.LocalDate;
-
+import java.sql.Timestamp;
 import java.util.List;
 @Repository
 public class TarRepositoryImp implements TareaRepository{
@@ -35,7 +35,19 @@ public class TarRepositoryImp implements TareaRepository{
                 .addParameter("idEmergencia", tarea.getId_emergencia())
                 .executeUpdate();
                 tarea.setId_tarea(idAnterior + 1);
-                return tarea;
+            
+            int idAnterior2 = conn.createQuery("SELECT COUNT(*) FROM log_tarea").executeScalar(Integer.class);
+            Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+            String sql2 = "INSERT INTO log_tarea (id_log_tarea , id_tarea, nombre_coordinador, accion, time_stamp)" +
+            "VALUES (:id, :id_tarea_real, :nombre, :accion, :fecha)";
+            conn.createQuery(sql2, true)
+                .addParameter("id",idAnterior2 + 1)
+                .addParameter("id_tarea_real", idAnterior)
+                .addParameter("nombre", "default")
+                .addParameter("accion", "CREAR")
+                .addParameter("fecha",timeStamp )
+                .executeUpdate();
+            return tarea;
         }catch(Exception e){
             System.out.println(e.getMessage());
             return null;

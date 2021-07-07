@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-
+import java.sql.Timestamp;
 import java.util.List;
-
-import cl.tdb.voluntariadodb.repositories.LogEmerRepository;
+import cl.tdb.voluntariadodb.models.Log_Emergencia;
 
 @Repository
 public class EmerRepositoryImp implements EmergenciaRepository{
@@ -32,8 +31,18 @@ public class EmerRepositoryImp implements EmergenciaRepository{
                 .addParameter("idInstitucion", emergencia.getId_institucion())
                 .executeUpdate();
                 emergencia.setId_emergencia(idAnterior + 1);
-                LogEmerRepositoryImp.crear(idAnterior + 1, emergencia.getNombre_emergencia(), "Creada");
-                return emergencia;
+            int idAnterior2 = conn.createQuery("SELECT COUNT(*) FROM log_emergencia").executeScalar(Integer.class);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            String sql2 = "INSERT INTO log_emergencia (id_log_emergencia ,id_emergencia, nombre_coordinador, accion, time_stamp)" +
+            "VALUES (:id, :idEmergencia, :coordinador, :accion, :timeStamp)";
+            conn.createQuery(sql2, true)
+                .addParameter("id",idAnterior2 + 1)
+                .addParameter("idEmergencia", idAnterior2 + 1)
+                .addParameter("coordinador", "default")
+                .addParameter("accion", "CREAR")
+                .addParameter("timeStamp",timestamp)
+                .executeUpdate();
+            return emergencia;
         }
 
     }

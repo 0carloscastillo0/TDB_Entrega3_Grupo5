@@ -9,19 +9,20 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
 import java.util.List;
-
+import java.sql.Timestamp;
 import cl.tdb.voluntariadodb.repositories.EmerRepositoryImp;
 
 @Repository
-public class EmerRepositoryImp implements LogEmergenciaRepository{
+public class LogEmerRepositoryImp implements LogEmergenciaRepository{
 
     @Autowired
     private Sql2o sql2o;
 
     @Override
-    public Log_Emergencia crear(int idEmergencia, String coordinador, String accion){
+    public void crear(int idEmergencia, String coordinador, String accion){
         try(Connection conn = sql2o.open()){
-            int idAnterior = conn.createQuery("SELECT COUNT(*) FROM log_emergencia").executeScalar(Integer.class);;
+            int idAnterior = conn.createQuery("SELECT COUNT(*) FROM log_emergencia").executeScalar(Integer.class);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             String sql = "INSERT INTO log_emergencia (id_log_emergencia ,id_emergencia, nombre_coordinador, accion, time_stamp)" +
             "VALUES (:id, :idEmergencia, :coordinador, :accion, :timeStamp)";
             conn.createQuery(sql, true)
@@ -29,10 +30,8 @@ public class EmerRepositoryImp implements LogEmergenciaRepository{
                 .addParameter("idEmergencia", idEmergencia)
                 .addParameter("coordinador", coordinador)
                 .addParameter("accion", accion)
-                .addParameter("time_stamp", Timestamp timestamp = new Timestamp(System.currentTimeMillis()))
+                .addParameter("time_stamp",timestamp)
                 .executeUpdate();
-                log_emergencia.setIdLogEmergencia(idAnterior + 1);
-                return log_emergencia;
         }
 
     }

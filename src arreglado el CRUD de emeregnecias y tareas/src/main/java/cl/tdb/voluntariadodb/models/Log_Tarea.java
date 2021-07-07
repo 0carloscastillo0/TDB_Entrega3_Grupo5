@@ -11,7 +11,7 @@ public class Log_Tarea {
         return id_log_tarea;
     }
     public void setIdLog(int id_log_tarea) {
-        this.id_log = id_log_tarea;
+        this.id_log_tarea = id_log_tarea;
     }
 
     public int getIdTarea() {
