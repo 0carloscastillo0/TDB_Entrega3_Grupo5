@@ -22,7 +22,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
         try(Connection conn = sql2o.open()){
             int idAnterior = conn.createQuery("SELECT COUNT(*) FROM emergencia").executeScalar(Integer.class);;
             String sql = "INSERT INTO emergencia (id_emergencia ,nombre_emergencia, descripcion_emergencia, estado_emergencia, id_institucion, location)" +
-            "VALUES (:id, :nombre, :descripcion, :estado, :idInstitucion, :point)";
+            "VALUES (:id, :nombre, :descripcion, :estado, :idInstitucion, ST_GeomFromText(:point, 4326))";
             String point = "POINT("emergencia.getLongitud_emergencia +" "+ emergencia.getLatitud_emergencia+")";
             conn.createQuery(sql, true)
                 .addParameter("id",idAnterior + 1)
@@ -103,7 +103,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
                 .addParameter("descripcion", emergencia.getDescripcion_emergencia())
                 .addParameter("id_estado", emergencia.getEstado_emergencia())
                 .addParameter("id_ins", emergencia.getId_institucion())
-                .addParameter("point", point);
+                .addParameter("point", ST_GeomFromText(point, 4326));
                 .executeUpdate();
             return "Se actualizo la emergencia";
         }
