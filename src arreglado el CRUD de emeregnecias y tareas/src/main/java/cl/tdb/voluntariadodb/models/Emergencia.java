@@ -8,9 +8,9 @@ public class Emergencia {
     private String descripcion_emergencia;
     private int estado_emergencia;
     private int id_institucion;
-    private double latitud_emergencia;
     private double longitud_emergencia;
-    //private Point location;
+    private double latitud_emergencia;
+    private Point location;
 
     //Getter de emergencia
     public int getId_emergencia(){

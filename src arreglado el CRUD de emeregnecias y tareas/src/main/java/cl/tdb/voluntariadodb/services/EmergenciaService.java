@@ -49,7 +49,10 @@ public class EmergenciaService {
     public List<Emergencia> getEmergencia(@PathVariable int id){
         return emergenciaRepository.show(id);
     }
-
+    @GetMapping("/emergencia/region/{numero_region}")
+    public List<Emergencia> getEmergenciaPorRegion(@PathVariable int numero_region){
+        return emergenciaRepository.getPorRegion(numero_region);
+    }
 
     // actualizar U
     @PutMapping("/emergencia/{id}")

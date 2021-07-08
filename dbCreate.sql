@@ -288,7 +288,25 @@ CREATE TABLE public.voluntario (
     disponibilidad_voluntario boolean,
     fnacimiento_voluntario date
 );
+ALTER TABLE public.voluntario OWNER TO postgres;
 
+
+CREATE TABLE public.regiones (
+    id_regiones integer NOT NULL,
+    "nombre_region" text,
+    "provincia" text,
+    "comuna" text,
+    "numero_region" numeric
+);
+SELECT AddGeometryColumn('','regiones','geom','0','MULTIPOLYGON',2);
+ALTER TABLE public.regiones OWNER TO postgres;
+
+
+-- Name: emergencia regiones_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.regiones
+    ADD CONSTRAINT regiones_pkey PRIMARY KEY (id_regiones);
 
 
 

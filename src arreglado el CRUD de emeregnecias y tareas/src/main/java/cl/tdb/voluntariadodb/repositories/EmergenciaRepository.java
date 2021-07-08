@@ -10,4 +10,5 @@ public interface EmergenciaRepository {
     public List<Emergencia> getAll();
     public List<Emergencia> show(int id);
     public void delete(int id);
+    public List<Emergencia> getPorRegion(int numero_region);
 }
