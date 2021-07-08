@@ -290,7 +290,7 @@ CREATE TABLE public.voluntario (
 );
 ALTER TABLE public.voluntario OWNER TO postgres;
 
-
+--adaptacion de la tabla de division_regional entregada por los docentes en classroom.
 CREATE TABLE public.regiones (
     id_regiones integer NOT NULL,
     "nombre_region" text,

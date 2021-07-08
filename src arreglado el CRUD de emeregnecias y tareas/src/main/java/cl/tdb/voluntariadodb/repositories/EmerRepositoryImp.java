@@ -102,7 +102,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
 
     @Override
     public List<Emergencia> getPorRegion(int numero_region) {
-        try(Connection conn = sql2o.open()){
+        try(Connection conn = sql2o.open()){ // adaptacion de la sentencia vista en clases.
             String sql="SELECT id_emergencia,nombre_emergencia,descripcion_emergencia FROM emergencia AS e INNER JOIN public.regiones AS r ON ST_WITHIN(e.location, ST_SetSRID(r.geom,4326)) WHERE r.numero_region = :numero;";
             return conn.createQuery(sql)
                     .addParameter("numero",numero_region)
