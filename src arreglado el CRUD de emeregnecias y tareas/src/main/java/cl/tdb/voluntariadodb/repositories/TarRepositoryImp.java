@@ -25,7 +25,7 @@ public class TarRepositoryImp implements TareaRepository{
             idAnterior = conn.createQuery("SELECT COUNT(*) FROM tarea").executeScalar(Integer.class);;
             String sql = "INSERT INTO tarea (id_tarea ,nombre_tarea, descripcion_tarea, cant_vol_requeridos, cant_vol_inscritos, inicio, fin, id_estado, id_emergencia, location)" + 
             " VALUES (:id, :nombre, :descripcion, :requeridos, :inscritos, :inicio, :fin, :idEstado, :idEmergencia, :point)";
-            String point = "POINT("+emergencia.getLongitud_emergencia()+" "+emergencia.getLatitud_emergencia()+")";
+            String point = "POINT(" + tarea.getLongitud_tarea() + " " + tarea.getLatitud_tarea() + ")";
             conn.createQuery(sql, true)
                 .addParameter("id",idAnterior + 1)
                 .addParameter("nombre", tarea.getNombre_tarea())
@@ -63,7 +63,7 @@ public class TarRepositoryImp implements TareaRepository{
     @Override
     public List<Tarea> getAll() {
         String sql = "select id_tarea ,nombre_tarea, descripcion_tarea, cant_vol_requeridos, cant_vol_inscritos, inicio, fin, id_estado, "+
-        "id_emergencia, st_y(st_astext(location)), st_x(st_astext(location)) from Tarea";
+        "id_emergencia, st_y(st_astext(location)) as latitud_tarea, st_x(st_astext(location)) as longitud_tarea from Tarea";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                     .executeAndFetch(Tarea.class);
@@ -77,7 +77,7 @@ public class TarRepositoryImp implements TareaRepository{
     @Override
     public List<Tarea> show(int id) {
         String sql = "select id_tarea ,nombre_tarea, descripcion_tarea, cant_vol_requeridos, cant_vol_inscritos, inicio, "+
-        "fin, id_estado, id_emergencia, st_y(st_astext(location)), st_x(st_astext(location)) from Tarea where id_tarea = :id";
+        "fin, id_estado, id_emergencia, st_y(st_astext(location)) as latitud_tarea, st_x(st_astext(location)) as longitud_tarea from Tarea where id_tarea = :id";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                     .addParameter("id",id)
@@ -116,8 +116,8 @@ public class TarRepositoryImp implements TareaRepository{
     public String update(Tarea tarea, int id){
         try(Connection conn = sql2o.open()){
             String updateSql = "update tarea set id_estado = :idEstado, nombre_tarea = :nombre, descripcion_tarea = :des, cant_vol_requeridos = :r, "+
-            "cant_vol_inscritos = :i, inicio = :ini, fin = :fi, id_emergencia = :idEmer, location=:point where id_tarea = :id_tarea";
-            String point = "POINT("+emergencia.getLongitud_emergencia()+" "+emergencia.getLatitud_emergencia()+")";
+            "cant_vol_inscritos = :i, inicio = :ini, fin = :fi, id_emergencia = :idEmer, location=ST_GeomFromText(:point, 4326) where id_tarea = :id_tarea";
+            String point = "POINT(" + tarea.getLongitud_tarea() + " " + tarea.getLatitud_tarea() + ")";
             conn.createQuery(updateSql)
                 .addParameter("idEstado", tarea.getId_estado())
                 .addParameter("id_tarea", id)
@@ -128,7 +128,7 @@ public class TarRepositoryImp implements TareaRepository{
                 .addParameter("ini", LocalDate.parse(tarea.getInicio()))
                 .addParameter("fi", LocalDate.parse(tarea.getFin()))
                 .addParameter("idEmer", tarea.getId_emergencia())
-                .addParameter("point", ST_GeomFromText(point, 4326));
+                .addParameter("point", point)
                 .executeUpdate();
             return "Se actualizo la tarea";
         }

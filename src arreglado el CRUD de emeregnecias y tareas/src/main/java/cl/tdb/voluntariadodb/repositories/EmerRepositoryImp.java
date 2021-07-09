@@ -31,7 +31,8 @@ public class EmerRepositoryImp implements EmergenciaRepository{
                 .addParameter("descripcion", emergencia.getDescripcion_emergencia())
                 .addParameter("estado", 1)
                 .addParameter("idInstitucion", emergencia.getId_institucion())
-                .executeUpdate("point", point);
+                .addParameter("point", point)
+                .executeUpdate();
                 emergencia.setId_emergencia(idAnterior + 1);
             int idAnterior2 = conn.createQuery("SELECT COUNT(*) FROM log_emergencia").executeScalar(Integer.class);
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -54,7 +55,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public List<Emergencia> getAll(){
         String sql = "select id_emergencia ,nombre_emergencia, descripcion_emergencia, estado_emergencia, id_institucion,"+
-        "st_y(st_astext(location)), st_x(st_astext(location)) from emergencia";
+        "st_y(st_astext(location)) as latitud_emergencia, st_x(st_astext(location)) as longitud_emergencia from emergencia";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                     .executeAndFetch(Emergencia.class);
@@ -68,7 +69,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public List<Emergencia> show(int id) {
         String sql = "select id_emergencia ,nombre_emergencia, descripcion_emergencia, estado_emergencia, id_institucion,"+
-        "st_y(st_astext(location)), st_x(st_astext(location)) from emergencia where id_emergencia = :id";
+        "st_y(st_astext(location)) as latitud_emergencia, st_x(st_astext(location)) as longitud_emergencia from emergencia where id_emergencia = :id";
         try(Connection conn = sql2o.open()){
             return conn.createQuery(sql)
                     .addParameter("id",id)
@@ -94,7 +95,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
     @Override
     public String update(Emergencia emergencia, int id){
         try(Connection conn = sql2o.open()){
-            String updateSql = "update emergencia set estado_emergencia = :id_estado, nombre_emergencia=:nombre, descripcion_emergencia=:descripcion, id_institucion=:id_ins, location=:point where id_emergencia = :id_emergencia";
+            String updateSql = "update emergencia set estado_emergencia = :id_estado, nombre_emergencia=:nombre, descripcion_emergencia=:descripcion, id_institucion=:id_ins, location=ST_GeomFromText(:point, 4326) where id_emergencia = :id_emergencia";
             String point = "POINT("+emergencia.getLongitud_emergencia()+" "+emergencia.getLatitud_emergencia()+")";
             conn.createQuery(updateSql)
                 .addParameter("id_emergencia",id)
@@ -102,7 +103,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
                 .addParameter("descripcion", emergencia.getDescripcion_emergencia())
                 .addParameter("id_estado", emergencia.getEstado_emergencia())
                 .addParameter("id_ins", emergencia.getId_institucion())
-                .addParameter("point", ST_GeomFromText(point, 4326));
+                .addParameter("point", point)
                 .executeUpdate();
             return "Se actualizo la emergencia";
         }
@@ -110,7 +111,7 @@ public class EmerRepositoryImp implements EmergenciaRepository{
 
     @Override
     public List<Emergencia> getPorRegion(int numero_region) {
-        try(Connection conn = sql2o.open()){ // adaptacion de la sentencia vista en clases.
+        try(Connection conn = sql2o.open()){ // adaptacion de la sentencia vista en clases.                                                                         Se setea el SRID en 4346 para que ST_WITHIN funcione correctamente.
             String sql="SELECT id_emergencia,nombre_emergencia,descripcion_emergencia FROM emergencia AS e INNER JOIN public.regiones AS r ON ST_WITHIN(e.location, ST_SetSRID(r.geom,4326)) WHERE r.numero_region = :numero;";
             return conn.createQuery(sql)
                     .addParameter("numero",numero_region)

@@ -10,7 +10,6 @@ public class Emergencia {
     private int id_institucion;
     private double longitud_emergencia;
     private double latitud_emergencia;
-    private Point location;
 
     //Getter de emergencia
     public int getId_emergencia(){

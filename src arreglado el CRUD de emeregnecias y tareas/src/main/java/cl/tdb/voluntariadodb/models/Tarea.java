@@ -11,7 +11,6 @@ public class Tarea {
     private String fin;
     private int id_estado;
     private int id_emergencia;
-    private Point location;
     private double longitud_tarea;
     private double latitud_tarea;
 

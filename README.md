@@ -2,6 +2,7 @@
 
 Para la ejecucion del presente proyecto se necesita:
 - Postgresql 11
+- postgis 2.5
 - Gradle 7.0 o superior
 - Spring tool suite 4
 - Java JDK 16
@@ -20,4 +21,4 @@ Para la ejecucion del presente proyecto se necesita:
 3) Dentro de la carpeta voluntariadodb abra la consola y ejecute: ./gradlew bootRun
 4) dejar corriendo la consola anterior.
 5) Dentro de la carpeta Frontend abra la consola y ejecute: npm run dev
-6) Abrir el navegador y entrar a localhost:3000/script
+6) Abrir el navegador y para ingresar a la pagina entrar a localhost:8081

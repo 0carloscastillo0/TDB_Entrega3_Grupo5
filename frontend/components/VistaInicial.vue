@@ -6,11 +6,9 @@
     <button @click="crearTarea">Crear Tarea</button>
     <button @click="verEmergencia">Ver Emergencias</button>
     <button @click="verTarea">Ver Tareas</button>
-    <button @click="status">Estados Emergencias</button>
-    <button @click="log">Historial</button>
     <button @click="verVoluntarios">Voluntarios Inscritos</button>
     <button @click="listEmergencias">Listar emergencias</button>
-<!--------------------------------------------------->  
+<!-------------------------CREAR EMERGENCIA-------------------------->  
     
     <div class="box" v-if="vistaEmergencia">
       <p>Vista Emergencia</p>
@@ -20,22 +18,15 @@
           <input id="nombre" size="30" v-model="newEmergencia.nombre_emergencia" type="text">
         </div>
         <div class="cajaDer">
-           <label for="miInput">Institucion</label><br>
-          <select name="cars" id="cars" v-model="newEmergencia.id_institucion">
-          <!--  <option value="1">Bomberos</option>
-            <option value="2">Cruz Roja</option>
-            <option value="3">Voluntariado USACH</option>
-            <option value="4">Hermanas de Chicureo</option>
-            <option value="5">Santa Maria</option>
-            <option value="6">Manos Mormonas</option>
-            <option value="7">Fundacion San Vicente</option>-->
-            <option  v-for="(institucion, index) in instituciones" :key="index">
-              {{index + 1}} {{ institucion.nombre_institucion }}
+          <label for="miInput">Institucion</label><br>
+          <select v-model="selected">
+            <option v-for="institucion in instituciones" v-bind:value="institucion.id">
+              {{ institucion.nombre}}
             </option>
           </select>
-          <span>Seleccionado: {{newEmergencia.id_institucion}}</span>
           
         </div>
+
         <div class="cajaAbaIzq">
           <label for="miInput">Descripcion Emergencia</label><br>
           <textarea id="descripcion" name="descripcion" v-model="newEmergencia.descripcion_emergencia" rows="7" cols="40"> 
@@ -44,11 +35,10 @@
         
       </form>
       <button @click="enviarE"> Crear </button> 
-      <button> Volver </button>
     </div> 
     
     
-<!--------------------------------------------------->    
+<!-----------------------CREAR TAREA---------------------------->    
     
     <div class="box" v-if="vistaTarea">
       Vista Tarea
@@ -77,162 +67,101 @@
         
       </form>
       <button @click="enviarT"> Crear </button> 
-      <button> Crear </button>
      
     </div>
     
-<!--------------------------------------------------->    
-    <div class="boxRightE" v-if="vistaActEmer">
-      <label> Emergencia a Finalizar </label><br>
-      <div class="grayBoxLE">
-      <!--Mostrar Emergencias con estado "2"-->
-      
-          <ul class="item-list">
-            <li v-for="(e3, index) in emergencias3" :key="index">
-              {{e3.nombre_emergencia}}
-            </li>
-          </ul>
-    
-      </div>
-      <button> Finalizar </button>
-    </div>
-    
-    <div class="boxCenterE" v-if="vistaActEmer">
-      <label> Emergencia a Cancelar </label><br>
-      <div class="grayBoxLE">
-      <!--Mostrar Emergencias con estado "2"-->
+<!------------------------VER EMERGENCIAS--------------------------->    
 
-        <ul class="item-list">
-          <li v-for="(e2, index) in emergencias2" :key="index">
-            {{e2.nombre_emergencia}}
-          </li>
-        </ul>
-    
-      </div>
-      <button> Cancelar </button>
-    </div>    
-    
-    <div class="boxLeftE" v-if="vistaActEmer">
-      <label> Emergencia a Iniciar </label><br>
+    <div class="box" v-if="vistaActEmer">
+      <h1> Emergencias </h1>
       <div class="grayBoxLE">
-      <!--Mostrar Emergencias con estado "1"-->
         
-        <ul class="item-list">
-          <li v-for="(e1, index) in emergencias1" :key="index">
-            {{e1.nombre_emergencia}}
-          </li>
-        </ul>
-     
-      </div>
-      <button> Iniciar </button>
-    </div>    
-    
-<!--------------------------------------------------->    
-    
-    <div class="boxRightE" v-if="vistaLog">
-      <label> Tareas Creadas </label><br>
-      <div class="grayBoxLE">
-        Log
+          <table class="table table-striped">
+            <thead>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripcion</th>
+            </thead>
+
+            <tbody>
+                <tr v-for="(item, index) in emergencias" :key="index">
+                  <td>{{item.id_emergencia}}</td>
+                  <td>{{item.nombre_emergencia}}</td>
+                  <td>{{item.descripcion_emergencia}}</td>
+                </tr>
+            </tbody>
+          </table>
+         
       </div>
     </div>
     
-    <div class="boxCenterE" v-if="vistaLog">
-      <label> Tareas Iniciadas </label><br>
-      <div class="grayBoxLE">
-        Log
-      </div>
-    </div>    
-    
-    <div class="boxLeftE" v-if="vistaLog">
-      <label> Tareas Finalizadas </label><br>
-      <div class="grayBoxLE">
-        Log
-      </div>
-    </div>    
-    
-  <!--------------------------------------------------->    
+
+  <!---------------------- VER TAREAS----------------------------->    
       
-    <div class="boxLeft" v-if="vistaActTarea">
-      <br>Tareas a Iniciar<br>
-      <div class="grayBoxL">
-        <label> Tareas No Activas </label>
-        <!--Mostrar Tareas con estado "1"-->
-          
-          <ul class="item-list">
-            <li v-for="(t1, index) in tareas1" :key="index">
-              {{t1.nombre_tarea}}
-            </li>
-          </ul>
+   <div class="box" v-if="vistaActTarea">
+      <h1> Tareas </h1>
+      <div class="grayBoxLE">
         
+          <table class="table table-striped">
+            <thead>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Descripcion</th>
+              <th>N° voluntarios requeridos</th>
+              <th>N° voluntarios inscritos</th>
+            </thead>
+
+            <tbody>
+                <tr v-for="(item, index) in tareasAll" :key="index">
+                  <td>{{item.id_tarea}}</td>
+                  <td>{{item.nombre_tarea}}</td>
+                  <td>{{item.descripcion_tarea}}</td>
+                  <td>{{item.cant_vol_requeridos}}</td>
+                  <td>{{item.cant_vol_inscritos}}</td>
+                </tr>
+            </tbody>
+          </table>
+         
       </div>
-      <button> Iniciar </button>
     </div>
     
-    <div class="boxRight" v-if="vistaActTarea">
-      <br>Tareas a Terminar<br>
-      <div class="grayBoxL">
-        <label> Tareas Activas </label>
-        <!--Mostrar Tareas con estado "2"-->
-          
-          <ul class="item-list">
-            <li v-for="(t2, index) in tareas2" :key="index">
-              {{t2.nombre_tarea}}
-            </li>
-          </ul>
-          
-      </div>
-      <button> Terminar </button>
-    </div>
-    
-  <!--------------------------------------------------->    
+  <!----------------------TAREAS CON MENOS VOLUNTARIOS----------------------------->    
       
     <div class="boxLeft" v-if="vistaVoluntarios">
-      <br>Emergencias <br>
+      <h1>Emergencias </h1>
       <div class="grayBoxL">
-        <label> Emergencias con menos Inscritos </label>
-        <!--Mostrar Emergencias de menos a mayor inscirtos-->
+        <select v-model="selected">
+          <option v-for="emergencia in emergencias" v-bind:value="emergencia.id_emergencia">
+            {{ emergencia.nombre_emergencia }}
+          </option>
+        </select>
       </div>
-      <button> Selecionar </button>
     </div>
         
     
     <div class="boxRight" v-if="vistaVoluntarios">
-      <br>Tareas<br>
+      <h1>Tareas</h1>
       <div class="grayBoxL">
-        <label> Tareas con menos Inscrito </label>
-        <!--Mostrar Tareas con menos inscritos-->
+        <table class="table table-striped">
+          <thead>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Voluntarios inscritos</th>
+          </thead>
+
+          <tbody>
+              <tr v-for="(item, index) in tareas" :key="index">
+                <td>{{item.id_tarea}}</td>
+                <td>{{item.nombre_tarea}}</td>
+                <td>{{item.cant_vol_inscritos}}</td>
+              </tr>
+
+          </tbody>
+        </table>
       </div>
-      <button> Selecionar </button>
     </div>
     
- <!--------------------------------------------------->    
-     <div class="statusFL" v-if="vistaStatus">
-       <label> Emergencias Creadas </label>
-       <div class="statusBox">
-       <!--Mostrar Emergencias con estado "1"-->
-       </div>
-    </div>
-    
-     <div class="statusCL" v-if="vistaStatus">
-       <label> Emergencias Iniciadas </label>
-       <div class="statusBox">
-       <!--Mostrar Emergencias con estado "2"-->
-       </div>
-    </div> 
-    
-    <div class="statusFR" v-if="vistaStatus">
-       <label> Emergencias Finalizadas </label>
-       <div class="statusBox">
-       <!--Mostrar Emergencias con estado "3"-->
-       </div>
-    </div>
-    
-    <div class="statusCR" v-if="vistaStatus">
-       <label> Emergencias Canceladas </label>
-       <!--Mostrar Emergencias con estado "4"-->
-       <div class="statusBox">
-       </div>
-    </div>
+ <!------------------------EMERGENCIAS X REGION--------------------------->    
     
     <div class="box" v-if="vistaListEmergencias">
       <p style="color:black;background: #faff71;">Listar emergencias por región</p>
@@ -242,75 +171,76 @@
         </div>
         
         <div class="cajaRegiones">
-            <select name="cars" id="cars" v-model = nro_region>
-              <!--Por mientras, despues hacer llamado a servicio rest para mostrar todos los nombres de regiones dentro de la caja-->
-              <option value="1">Tarapacá</option>
-              <option value="2">Antofagasta</option>
-              <option value="3">Atacama</option>
-              <option value="4">Coquimbo</option>
-              <option value="5">Valparaiso</option>
-              <option value="6">Libertador General Bernardo O'Higgins</option>
-              <option value="7">Maule</option>
-              <option value="8">Biobío</option>
-              <option value="9">Araucanía</option>
-              <option value="10">Los Lagos</option>
-              <option value="11">Aysén del General Carlos Ibañez del Campo</option>
-              <option value="12">Magallanes y la Antártica Chilena</option>
-              <option value="13">Metropolitana de Santiago</option>
-              <option value="14">Los Ríos</option>
-              <option value="15">Arica y parinacota</option>
-              <option value="16">Ñuble</option>
-
-            </select>
-            <span>Selected: {{ nro_region }}</span>
+          <select v-model="selected2">
+            <option v-for="region in regiones" v-bind:value="region.value">
+              {{ region.text }}
+            </option>
+          </select>
         </div>
-
         <div class="boxListE">
-          <!--Listar mediante servicio rest las emergencia según la region escogida-->
           <table class="table table-striped">
             <thead>
-                <th>Nombre</th>
-                <th>Descripcion</th>
+              <th>Nombre</th>
+              <th>Descripcion</th>
             </thead>
 
             <tbody>
-                <tr v-for="(item, index) in emergenciasXregion" :key="index">
-                    <td>{{item.nombre_emergencia}}</td>
-                    <td>{{item.descripcion_emergencia}}</td>
+                <tr v-for="(item, index) in emergencias2" :key="index">
+                  <td>{{item.nombre_emergencia}}</td>
+                  <td>{{item.descripcion_emergencia}}</td>
                 </tr>
 
             </tbody>
           </table>
-        
         </div>
       </form>
     </div>
   </div>
 </template>
-<!--------------------------------------------------->    
+
+
+
+
+<!-----------------------SCRIPTS---------------------------->    
 <script>
   export default {
   data() {
     return {
       mensaje:'ChileVoluntarios',
-      vistaEmergencia: false,
+      vistaEmergencia: true,
       vistaTarea: false,
       vistaActEmer: false,
       vistaActTarea: false,
-      vistaLog: true,
       vistaStatus: false,
       vistaListEmergencias: false,
       vistaVoluntarios: false,
       newEmergencia:{ },
       newTarea:{ },
-      emergencias3:[],
       emergencias2:[],
-      emergencias1:[],
+      emergencias:[],
+      selected: '0',
       instituciones:[],
-      emergenciasXregion:[],
-      nro_region:0,
-      tareas2:[],
-      tareas1:[]
+      tareasAll:[{nombre_tarea: 'a'}],
+      tareas:[],
+      selected2: '0',
+      selected3: '0',
+      regiones:[
+        {text:'Arica y Parinacota', value:'15'},
+        {text:'Vaparaíso', value:'5'},
+        {text:'Libertador Bernando O Higgins', value:'6'},
+        {text:'Los Lagos', value:'10'},
+        {text:'Atacama', value:'3'},
+        {text:'Metropolitana de Santiago', value:'13'},
+        {text:'La Araucania', value:'9'},
+        {text:'Maule', value:'7'},
+        {text:'Taracapá', value:'1'},
+        {text:'Los rios', value:'14'},
+        {text:'Bío-Bío', value:'8'},
+        {text:'Aysén del Gral.Ibañez del Campo', value:'11'},
+        {text:'Antofagasta', value:'2'},
+        {text:'Coquimbo', value:'4'},
+        {text:'Magallanes y Antártica Chilena', value:'12'}
+      ]
     }
   },
   methods: {
@@ -333,25 +263,6 @@
       this.vistaStatus=false;
       this.vistaListEmergencias= false;
       this.vistaVoluntarios= false;
-    },
-    log(){
-      this.vistaTarea=false;
-      this.vistaEmergencia=false;
-      this.vistaActEmer=false;
-      this.vistaActTarea=false;
-      this.vistaLog=true;
-      this.vistaStatus=false;
-      this.vistaListEmergencias= false;
-      this.vistaVoluntarios= false;
-    },
-    status(){
-      this.vistaTarea=false;
-      this.vistaEmergencia=false;
-      this.vistaActEmer=false;
-      this.vistaActTarea=false;
-      this.vistaLog=false;
-      this.vistaStatus=true;
-      this.vistaListEmergencias= false;
     },
     verTarea(){
       this.vistaTarea=false;
@@ -402,10 +313,10 @@
           console.log('error', error);
       }
     },
-    getEmeXregion: async function(){
+    getTareas: async function(){
       try {
-          let response = await this.$axios.get('/emergencia/region/'+this.nro_region);
-          this.emergenciasXregion  = response.data;
+          let response = await this.$axios.get('/tarea');
+          this.tareasAll = response.data;
           console.log(response)
       } catch (error) {
           console.log('error', error);
@@ -433,79 +344,58 @@
         console.log('error', error)
       }
     },
-    getEmergencia3: async function(){
+    getEmergencias: async function(){
       try {
-        let response = await this.$axios.get('/emergencia3');
-        this.emergencias3 = response.data;
+        let response = await this.$axios.get('/emergencia');
+        this.emergencias = response.data;
         console.log(response)
       } catch (error) {
         console.log('error', error);
       }
     },
-    getEmergencia2: async function(){
+    getTareasPorEmer: async function(){
       try {
-        let response = await this.$axios.get('/emergencia2');
-        this.emergencias2 = response.data;
-        console.log(response)
-      } catch (error) {
-        console.log('error', error);
-      }
-    },
-    getEmergencia1: async function(){
-      try {
-        let response = await this.$axios.get('/emergencia1');
-        this.emergencias1 = response.data;
-        console.log(response)
-      } catch (error) {
-        console.log('error', error);
-      }
-    },
-    getTarea2: async function(){
-      try {
-        let response = await this.$axios.get('/tarea2');
-        this.tareas2 = response.data;
-        console.log(response)
-      } catch (error) {
-        console.log('error', error);
-      }
-    },
-    getTarea1: async function(){
-      try {
-        let response = await this.$axios.get('/tarea1');
-        this.tareas1 = response.data;
+        let response = await this.$axios.get('/tarea/emergencia/'+this.selected);
+        this.tareas = response.data;
         console.log(response)
       } catch (error) {
         console.log('error', error);
       }
     }
+
   },
-    
-    //Funciónes que se ejecuta al cargar los componentes necesarios
-  created:function(){
-    this.getEmergencia3();
+  watch:{
+    selected: async function(){
+      try {
+        let response = await this.$axios.get('/tarea/emergencia/'+this.selected);
+        this.tareas = response.data;
+        console.log(response)
+      } catch (error) {
+        console.log('error', error);
+      }
+    },
+    selected2: async function(){
+      try {
+        let response = await this.$axios.get('/emergencia/region/'+this.selected2);
+        this.emergencias2 = response.data;
+        console.log(response)
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+
   },
+
+  //Funciónes que se ejecuta al cargar los componentes necesarios
+
   created:function(){
-    this.getEmergencia2();
-  },
-  created:function(){
-    this.getEmergencia1();
-  },
-  created:function(){
-    this.getTarea2();
-  },
-  created:function(){
-    this.getTarea1();
-  },
-  created:function(){
+    this.getEmergencias();
     this.getData();
-  },
-  created:function(){
-    this.getEmeXregion();
+    this.getTareas();
   }
-
-
   }
 </script>
+
 <!-- Use preprocessors via the lang attribute! e.g. <style lang="scss"> -->
 <style>
 #app {
@@ -552,6 +442,7 @@ button {
   top: 153px;
   background: #ECEDC9;
   border-radius: 33px;
+  color: black;
 }
   .boxLeft {
   position: absolute;
@@ -700,9 +591,8 @@ button {
   
     .grayBoxLE{
     position: absolute;
-    width: 300px;
-    height: 314px;
-    left: 30px;
+    
+    left: 8%;
     top: 90px;
     background: #C4C4C4;
     color: black;
