@@ -8,10 +8,9 @@
     <button @click="verTarea">Ver Tareas</button>
     <button @click="status">Estados Emergencias</button>
     <button @click="log">Historial</button>
+    <button @click="verVoluntarios">Voluntarios Inscritos</button>
     <button @click="listEmergencias">Listar emergencias</button>
 <!--------------------------------------------------->  
-    
-    -------------------------------------------------->  
     
     <div class="box" v-if="vistaEmergencia">
       <p>Vista Emergencia</p>
@@ -83,7 +82,6 @@
     </div>
     
 <!--------------------------------------------------->    
-
     <div class="boxRightE" v-if="vistaActEmer">
       <label> Emergencia a Finalizar </label><br>
       <div class="grayBoxLE">
@@ -153,7 +151,6 @@
     </div>    
     
   <!--------------------------------------------------->    
-
       
     <div class="boxLeft" v-if="vistaActTarea">
       <br>Tareas a Iniciar<br>
@@ -185,6 +182,27 @@
           
       </div>
       <button> Terminar </button>
+    </div>
+    
+  <!--------------------------------------------------->    
+      
+    <div class="boxLeft" v-if="vistaVoluntarios">
+      <br>Emergencias <br>
+      <div class="grayBoxL">
+        <label> Emergencias con menos Inscritos </label>
+        <!--Mostrar Emergencias de menos a mayor inscirtos-->
+      </div>
+      <button> Selecionar </button>
+    </div>
+        
+    
+    <div class="boxRight" v-if="vistaVoluntarios">
+      <br>Tareas<br>
+      <div class="grayBoxL">
+        <label> Tareas con menos Inscrito </label>
+        <!--Mostrar Tareas con menos inscritos-->
+      </div>
+      <button> Selecionar </button>
     </div>
     
  <!--------------------------------------------------->    
@@ -244,7 +262,6 @@
   </div>
 </template>
 <!--------------------------------------------------->    
-
 <script>
   export default {
   data() {
@@ -257,6 +274,7 @@
       vistaLog: true,
       vistaStatus: false,
       vistaListEmergencias: false,
+      vistaVoluntarios: false,
       newEmergencia:{ },
       newTarea:{ },
       emergencias3:[],
@@ -276,6 +294,7 @@
       this.vistaLog=false;
       this.vistaStatus=false;
       this.vistaListEmergencias= false;
+      this.vistaVoluntarios= false;
     } ,
     emergencia(){
       this.vistaTarea=false;
@@ -285,6 +304,7 @@
       this.vistaLog=false;
       this.vistaStatus=false;
       this.vistaListEmergencias= false;
+      this.vistaVoluntarios= false;
     },
     log(){
       this.vistaTarea=false;
@@ -294,6 +314,7 @@
       this.vistaLog=true;
       this.vistaStatus=false;
       this.vistaListEmergencias= false;
+      this.vistaVoluntarios= false;
     },
     status(){
       this.vistaTarea=false;
@@ -312,6 +333,7 @@
       this.vistaLog=false;
       this.vistaStatus=false;
       this.vistaListEmergencias= false;
+      this.vistaVoluntarios= false;
     },
     verEmergencia(){
       this.vistaTarea=false;
@@ -321,6 +343,7 @@
       this.vistaLog=false;
       this.vistaStatus=false;
       this.vistaListEmergencias= false;
+      this.vistaVoluntarios= false;
     },
     listEmergencias(){
       this.vistaTarea=false;
@@ -330,6 +353,17 @@
       this.vistaLog=false;
       this.vistaStatus=false;
       this.vistaListEmergencias= true;
+      this.vistaVoluntarios= false;
+    },
+    verVoluntarios(){
+      this.vistaTarea=false;
+      this.vistaEmergencia=false;
+      this.vistaActEmer=false;
+      this.vistaActTarea=false;
+      this.vistaLog=false;
+      this.vistaStatus=false;
+      this.vistaListEmergencias= false;
+      this.vistaVoluntarios= true;
     },
     getData: async function(){
       try {
@@ -350,9 +384,7 @@
         //mensaje de error
         console.log('error', error)
       }
-
     },
-
     enviarT: async function() {
       try{
         var result = await this.$axios.post('/tarea', this.newTarea);
@@ -363,7 +395,6 @@
         //mensaje de error
         console.log('error', error)
       }
-
     },
     getEmergencia3: async function(){
       try {
@@ -431,11 +462,8 @@
   created:function(){
     this.getData();
   }
-
   }
-
 </script>
-
 <!-- Use preprocessors via the lang attribute! e.g. <style lang="scss"> -->
 <style>
 #app {
@@ -453,12 +481,10 @@
   box-sizing: border-box;
   
 }
-
 a,
 button {
   color: white;
 }
-
 button {
   background: #25274C;
   border: solid 1px;
@@ -474,7 +500,6 @@ button {
     left: 0px;
     top: 611px;
     background: #ECEDC9;
-
   }
   
 .box {
@@ -697,7 +722,6 @@ button {
     background: #C4C4C4;
     border-radius: 33px;
   }
-
   .cajaRegiones{
     position: absolute;
     width: 300px;
@@ -708,7 +732,6 @@ button {
     color: black;
     border-radius: 33px;
   }
-
   .cajaTextoLE{
    position: absolute;
    width: 280px;
@@ -719,7 +742,6 @@ button {
    color: black;
    border-radius: 33px;
   }
-
   .boxListE{
     position: absolute;
     width: 880px;
