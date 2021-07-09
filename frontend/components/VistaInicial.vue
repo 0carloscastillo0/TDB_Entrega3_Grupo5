@@ -242,20 +242,46 @@
         </div>
         
         <div class="cajaRegiones">
-            <select name="cars" id="cars">
+            <select name="cars" id="cars" v-model = nro_region>
               <!--Por mientras, despues hacer llamado a servicio rest para mostrar todos los nombres de regiones dentro de la caja-->
-              <option value="1">Arica y Parinacota</option>
-              <option value="2">Tarapaca</option>
-              <option value="3">Coquimbo</option>
-              <option value="4">Valparaiso</option>
-              <option value="5">Metropolitana</option>
-              <option value="6">Maule</option>
-              <option value="7">Los ríos</option>
+              <option value="1">Tarapacá</option>
+              <option value="2">Antofagasta</option>
+              <option value="3">Atacama</option>
+              <option value="4">Coquimbo</option>
+              <option value="5">Valparaiso</option>
+              <option value="6">Libertador General Bernardo O'Higgins</option>
+              <option value="7">Maule</option>
+              <option value="8">Biobío</option>
+              <option value="9">Araucanía</option>
+              <option value="10">Los Lagos</option>
+              <option value="11">Aysén del General Carlos Ibañez del Campo</option>
+              <option value="12">Magallanes y la Antártica Chilena</option>
+              <option value="13">Metropolitana de Santiago</option>
+              <option value="14">Los Ríos</option>
+              <option value="15">Arica y parinacota</option>
+              <option value="16">Ñuble</option>
+
             </select>
+            <span>Selected: {{ nro_region }}</span>
         </div>
 
         <div class="boxListE">
           <!--Listar mediante servicio rest las emergencia según la region escogida-->
+          <table class="table table-striped">
+            <thead>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+            </thead>
+
+            <tbody>
+                <tr v-for="(item, index) in emergenciasXregion" :key="index">
+                    <td>{{item.nombre_emergencia}}</td>
+                    <td>{{item.descripcion_emergencia}}</td>
+                </tr>
+
+            </tbody>
+          </table>
+        
         </div>
       </form>
     </div>
@@ -281,6 +307,8 @@
       emergencias2:[],
       emergencias1:[],
       instituciones:[],
+      emergenciasXregion:[],
+      nro_region:0,
       tareas2:[],
       tareas1:[]
     }
@@ -374,6 +402,15 @@
           console.log('error', error);
       }
     },
+    getEmeXregion: async function(){
+      try {
+          let response = await this.$axios.get('/emergencia/region/'+this.nro_region);
+          this.emergenciasXregion  = response.data;
+          console.log(response)
+      } catch (error) {
+          console.log('error', error);
+      }
+    },
      enviarE: async function() {
       try{
         var result = await this.$axios.post('/emergencia', this.newEmergencia);
@@ -461,7 +498,12 @@
   },
   created:function(){
     this.getData();
+  },
+  created:function(){
+    this.getEmeXregion();
   }
+
+
   }
 </script>
 <!-- Use preprocessors via the lang attribute! e.g. <style lang="scss"> -->
