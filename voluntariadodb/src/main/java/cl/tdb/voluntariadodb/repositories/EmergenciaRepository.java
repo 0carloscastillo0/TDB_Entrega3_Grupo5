@@ -5,9 +5,10 @@ import cl.tdb.voluntariadodb.models.Emergencia;
 import java.util.List;
 
 public interface EmergenciaRepository {
-    public Emergencia crearEmergencia(Emergencia emergencia);
-    public List<Emergencia> obtenerEmergencias1();
-    public List<Emergencia> obtenerEmergencias2();
-    public List<Emergencia> obtenerEmergencias3();
-    public List<Emergencia> obtenerEmergencias4();
+    public Emergencia crear(Emergencia emergencia);
+    public String update(Emergencia emergencia, int id);
+    public List<Emergencia> getAll();
+    public List<Emergencia> show(int id);
+    public void delete(int id);
+    public List<Emergencia> getPorRegion(int numero_region);
 }

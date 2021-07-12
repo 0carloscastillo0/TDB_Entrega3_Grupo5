@@ -6,10 +6,15 @@ package cl.tdb.voluntariadodb.services;
 import cl.tdb.voluntariadodb.models.Emergencia;
 import cl.tdb.voluntariadodb.repositories.EmergenciaRepository;
 
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,25 +32,39 @@ public class EmergenciaService {
 
     @PostMapping("/emergencia")
     @ResponseBody
-    public Emergencia crearEmergencia(@RequestBody Emergencia emergencia){
-        Emergencia resultado = emergenciaRepository.crearEmergencia(emergencia);
+    public Emergencia crear(@RequestBody Emergencia emergencia){
+        Emergencia resultado = emergenciaRepository.crear(emergencia);
         return resultado;
     }
-    @GetMapping("/emergencia1")
-    public List<Emergencia> obtenerEmergencias1(){
-        return emergenciaRepository.obtenerEmergencias1();
+    
+
+
+    // leer R
+    @GetMapping("/emergencia")
+    public List<Emergencia> getAllEmergencias(){
+        return emergenciaRepository.getAll();
     }
-    @GetMapping("/emergencia2")
-    public List<Emergencia> obtenerEmergencias2(){
-        return emergenciaRepository.obtenerEmergencias2();
+    
+    @GetMapping("/emergencia/{id}")
+    public List<Emergencia> getEmergencia(@PathVariable int id){
+        return emergenciaRepository.show(id);
     }
-    @GetMapping("/emergencia3")
-    public List<Emergencia> obtenerEmergencias3(){
-        return emergenciaRepository.obtenerEmergencias3();
-    }
-    @GetMapping("/emergencia4")
-    public List<Emergencia> obtenerEmergencias4(){
-        return emergenciaRepository.obtenerEmergencias4();
+    @GetMapping("/emergencia/region/{numero_region}")
+    public List<Emergencia> getEmergenciaPorRegion(@PathVariable int numero_region){
+        return emergenciaRepository.getPorRegion(numero_region);
     }
 
+    // actualizar U
+    @PutMapping("/emergencia/{id}")
+    @ResponseBody
+    public String updateEmergencia(@RequestBody Emergencia emergencia, @PathVariable int id){
+        String retorno = emergenciaRepository.update(emergencia,id);
+        return retorno;
+    }
+    
+    // borrar D
+    @DeleteMapping("/emergencia/{id}")
+    public void borrar(@PathVariable int id){
+        emergenciaRepository.delete(id);
+    }
 }

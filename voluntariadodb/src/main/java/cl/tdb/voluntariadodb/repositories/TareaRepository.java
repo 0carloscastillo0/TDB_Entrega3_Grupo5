@@ -1,11 +1,14 @@
 package cl.tdb.voluntariadodb.repositories;
 
 import cl.tdb.voluntariadodb.models.Tarea;
+import java.util.List;
 
 public interface TareaRepository {
-    public Tarea crearTarea(Tarea tarea);
-    public String updateTarea(int nuevoNumeroTarea, Tarea tarea);
-    public List<Tarea> getAllTareas();
-    public Tarea Show(int id);
+    public Tarea crear(Tarea tarea);
+    public String update(Tarea tarea, int id);
+    public List<Tarea> getAll();
+    public List<Tarea> show(int id);
+    public void delete(int id);
+    public List<Tarea> tareas(int id_emergencia);
 }
 

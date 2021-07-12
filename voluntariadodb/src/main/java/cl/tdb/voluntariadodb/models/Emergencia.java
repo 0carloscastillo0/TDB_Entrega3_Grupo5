@@ -1,15 +1,25 @@
 package cl.tdb.voluntariadodb.models;
 
+import org.postgis.Point;
+
 public class Emergencia {
     private int id_emergencia;
     private String nombre_emergencia;
     private String descripcion_emergencia;
     private int estado_emergencia;
     private int id_institucion;
+    private double longitud_emergencia;
+    private double latitud_emergencia;
 
     //Getter de emergencia
     public int getId_emergencia(){
         return id_emergencia;
+    }
+    public double getLongitud_emergencia(){
+        return longitud_emergencia;
+    }
+    public double getLatitud_emergencia(){
+        return latitud_emergencia;
     }
     public String getNombre_emergencia(){
         return nombre_emergencia;
@@ -38,5 +48,11 @@ public class Emergencia {
     }
     public void setId_institucion(int id_institucion){
         this.id_institucion = id_institucion;
+    }
+    public void setLongitud_emergencia(){
+        this.longitud_emergencia = longitud_emergencia;
+    }
+    public void setLatitud_emergencia(){
+        this.latitud_emergencia = latitud_emergencia;
     }
 }
