@@ -138,12 +138,17 @@ INSERT INTO public.habilidad(id_habilidad, nombre_habilidad, descripcion_habilid
 INSERT INTO public.habilidad(id_habilidad, nombre_habilidad, descripcion_habilidad, valoracion_habilidad) VALUES (9,'Rescatista','Buscar y encontrar heridos o desaparecidos en las zonas afectadas','97');
 
 
+INSERT INTO public.emergencia(id_emergencia, nombre_tabla, nombre_emergencia, descripcion_emergencia) VALUES(3, 'emergencia0', 'Incendio forestal', 'Necesitamos voluntarios para apagar las llamas del bosque.');
+INSERT INTO public.emergencia(id_emergencia, nombre_tabla, nombre_emergencia, descripcion_emergencia) VALUES(6, 'emergencia0', 'Accidente temblor', 'Edificio derrumbado tras temblor');
 
 
-
-
-
-
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(1, 'eme_habilidad0', 3, 2);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(2, 'eme_habilidad0', 3, 7);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(3, 'eme_habilidad0', 3, 8);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(4, 'eme_habilidad0', 3, 9);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(5, 'eme_habilidad0', 6, 2);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(6, 'eme_habilidad0', 6, 3);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(7, 'eme_habilidad0', 6, 9);
 
 
 DROP DATABASE voluntariadodb1;
@@ -264,6 +269,14 @@ INSERT INTO public.habilidad(id_habilidad, nombre_habilidad, descripcion_habilid
 INSERT INTO public.habilidad(id_habilidad, nombre_habilidad, descripcion_habilidad, valoracion_habilidad) VALUES (8,'Trabajo manual de cargas','Se Trasladan cargas pesadas de un lugar a otro','83');
 INSERT INTO public.habilidad(id_habilidad, nombre_habilidad, descripcion_habilidad, valoracion_habilidad) VALUES (9,'Rescatista','Buscar y encontrar heridos o desaparecidos en las zonas afectadas','97');
 
+INSERT INTO public.emergencia(id_emergencia, nombre_tabla, nombre_emergencia, descripcion_emergencia) VALUES(1, 'emergencia1', 'Trasladar personas', 'Ocurrio un desvorde de un rio, y se deben trasladar los habitantes cercanos a este');
+INSERT INTO public.emergencia(id_emergencia, nombre_tabla, nombre_emergencia, descripcion_emergencia) VALUES(4, 'emergencia1', 'Limpieza de calles', 'Las calles se encuentras llenas de basura');
+
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(8, 'eme_habilidad1', 1, 7);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(9, 'eme_habilidad1', 1, 9);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(10, 'eme_habilidad1', 4, 5);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(11, 'eme_habilidad1', 4, 7);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(12, 'eme_habilidad1', 4, 8);
 
 
 
@@ -387,6 +400,15 @@ INSERT INTO public.habilidad(id_habilidad, nombre_habilidad, descripcion_habilid
 
 
 
+INSERT INTO public.emergencia(id_emergencia, nombre_tabla, nombre_emergencia, descripcion_emergencia) VALUES(2, 'emergencia2', 'Recolectar escombros', 'Limpieza de escombros en zonas rurales');
+INSERT INTO public.emergencia(id_emergencia, nombre_tabla, nombre_emergencia, descripcion_emergencia) VALUES(5, 'emergencia2', 'Alimentar a gente necesitada', 'Cocinar para las personas que se encuentren en situacion de calle');
 
+
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(13, 'eme_habilidad2', 2, 2);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(14, 'eme_habilidad2', 2, 7);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(15, 'eme_habilidad2', 2, 8);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(16, 'eme_habilidad2', 5, 1);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(17, 'eme_habilidad2', 5, 6);
+INSERT INTO public.eme_habilidad(id_eme_habilidad, nombre_tabla, id_emergencia, id_habilidad) VALUES(18, 'eme_habilidad2', 5, 7);
 
 
